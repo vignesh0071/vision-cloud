@@ -882,6 +882,7 @@
 }
 
 .form-input.input-error,
+.form-select.input-error,
 .form-textarea.input-error {
   border-color: #C0392B;
 }

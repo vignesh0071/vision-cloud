@@ -93,9 +93,9 @@ export interface TeamMember {
 
 export interface ContactFormData {
   name: string;
-  email: string;
   company: string;
-  projectType: string;
-  estimatedBudget: string;
-  description: string;
+  email: string;
+  phone: string;
+  service: string;
+  summary: string;
 }

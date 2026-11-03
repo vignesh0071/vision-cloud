@@ -4,7 +4,6 @@ import {
   Mail,
   MessageSquare,
   ShieldCheck,
-  Send,
   CheckCircle2,
   AlertCircle,
   Loader2,
@@ -18,62 +17,159 @@ import { Reveal } from '../components/animation/Reveal';
 import type { ContactFormData } from '../types';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
+export const SERVICE_OPTIONS = [
+  'Custom Software Engineering',
+  'Web Application Development',
+  'Website Design and Development',
+  'Mobile Application Development',
+  'E-commerce Development',
+  'UI/UX Design',
+  'Cloud Solutions and Deployment',
+  'Technical Consultation',
+  'Other'
+] as const;
+
+export const BUSINESS_WHATSAPP_NUMBER = '919345688752';
+export const DIRECT_WHATSAPP_URL = `https://wa.me/${BUSINESS_WHATSAPP_NUMBER}`;
+
+export function buildWhatsAppMessage(data: ContactFormData): string {
+  const name = data.name.trim();
+  const company = data.company.trim();
+  const email = data.email.trim();
+  const phone = data.phone.trim();
+  const service = data.service.trim();
+  const summary = data.summary.trim();
+
+  const companyLine = company ? `Company: ${company}\n` : '';
+
+  return (
+`Hello Vision Cloud Team,
+
+I would like to enquire about your services.
+
+Name: ${name}
+${companyLine}Email: ${email}
+Phone: ${phone}
+Service Required: ${service}
+
+Project Summary:
+${summary}
+
+Please contact me to discuss the requirements and next steps.
+
+Thank you,
+${name}`
+  );
+}
+
+function resolveInitialService(queryValue: string | null): string {
+  if (!queryValue) return SERVICE_OPTIONS[0];
+  const normalized = queryValue.toLowerCase();
+
+  const exact = SERVICE_OPTIONS.find(
+    (opt) => opt.toLowerCase() === normalized
+  );
+  if (exact) return exact;
+
+  if (normalized.includes('web') && normalized.includes('design')) return 'Website Design and Development';
+  if (normalized.includes('web') || normalized.includes('portal')) return 'Web Application Development';
+  if (normalized.includes('mobile') || normalized.includes('ios') || normalized.includes('android')) return 'Mobile Application Development';
+  if (normalized.includes('commerce') || normalized.includes('shop') || normalized.includes('store')) return 'E-commerce Development';
+  if (normalized.includes('ui') || normalized.includes('ux') || normalized.includes('design')) return 'UI/UX Design';
+  if (normalized.includes('cloud') || normalized.includes('devops') || normalized.includes('infrastructure')) return 'Cloud Solutions and Deployment';
+  if (normalized.includes('consult') || normalized.includes('audit') || normalized.includes('assessment')) return 'Technical Consultation';
+  if (normalized.includes('software') || normalized.includes('backend') || normalized.includes('api')) return 'Custom Software Engineering';
+
+  return 'Other';
+}
+
 export const Contact: React.FC = () => {
   useDocumentTitle(
-    'Contact Vision Cloud | Start a Project Consultation',
-    'Submit your software engineering requirements, system architecture goals, or contact our engineering lead directly on WhatsApp.'
+    'Contact Vision Cloud | Project Enquiry & WhatsApp Desk',
+    'Submit your software engineering requirements, enquire about custom systems, or connect directly with our engineering desk on WhatsApp.'
   );
 
   const location = useLocation();
 
-  // Read URL query parameters (e.g. ?service=Web%20Development or ?project=Nexus)
+  // Read URL query parameters (e.g. ?service=Web%20Development or ?project=Nexus or ?inquiry=...)
   const searchParams = new URLSearchParams(location.search);
-  const initialService = searchParams.get('service') || searchParams.get('project') || searchParams.get('inquiry') || 'Custom Software Engineering';
+  const initialQuery = searchParams.get('service') || searchParams.get('project') || searchParams.get('inquiry');
 
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
-    email: '',
     company: '',
-    projectType: initialService,
-    estimatedBudget: 'Undetermined / Needs Assessment',
-    description: ''
+    email: '',
+    phone: '',
+    service: resolveInitialService(initialQuery),
+    summary: ''
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [submittedMessage, setSubmittedMessage] = useState('');
+  const [submittedWaUrl, setSubmittedWaUrl] = useState('');
 
-  // Update projectType if query changes
+  // Update service dropdown if URL query parameters change
   useEffect(() => {
-    const s = searchParams.get('service') || searchParams.get('project') || searchParams.get('inquiry');
-    if (s) {
-      setFormData((prev) => ({ ...prev, projectType: s }));
+    const q = searchParams.get('service') || searchParams.get('project') || searchParams.get('inquiry');
+    if (q) {
+      setFormData((prev) => ({ ...prev, service: resolveInitialService(q) }));
     }
   }, [location.search]);
 
   const validate = (): boolean => {
     const errs: Partial<Record<keyof ContactFormData, string>> = {};
 
-    if (!formData.name.trim()) {
-      errs.name = 'Please provide your full name.';
-    } else if (formData.name.trim().length < 2) {
-      errs.name = 'Name must be at least 2 characters.';
+    // 1. Full Name (required)
+    const trimmedName = formData.name.trim();
+    if (!trimmedName) {
+      errs.name = 'Please enter your full name.';
+    } else if (trimmedName.length < 2) {
+      errs.name = 'Full name must be at least 2 characters.';
     }
 
-    if (!formData.email.trim()) {
-      errs.email = 'Please provide an email address.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
-      errs.email = 'Please provide a valid email format (e.g. name@company.com).';
+    // 2. Email Address (required)
+    const trimmedEmail = formData.email.trim();
+    if (!trimmedEmail) {
+      errs.email = 'Please enter your email address.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      errs.email = 'Please enter a valid email address (e.g. name@company.com).';
     }
 
-    if (!formData.description.trim()) {
-      errs.description = 'Please describe your project scope, timeline, or technical challenges.';
-    } else if (formData.description.trim().length < 15) {
-      errs.description = 'Please provide at least 15 characters to help our technical leads understand your scope.';
+    // 3. Mobile Number (required)
+    const trimmedPhone = formData.phone.trim();
+    const phoneDigits = trimmedPhone.replace(/\D/g, '');
+    if (!trimmedPhone) {
+      errs.phone = 'Please enter your mobile number.';
+    } else if (phoneDigits.length < 7 || phoneDigits.length > 15) {
+      errs.phone = 'Please enter a valid mobile number with country code (e.g. +91 98765 43210).';
+    }
+
+    // 4. Service Required (required)
+    if (!formData.service || !SERVICE_OPTIONS.includes(formData.service as any)) {
+      errs.service = 'Please select a service from the list.';
+    }
+
+    // 5. Project Summary (required)
+    const trimmedSummary = formData.summary.trim();
+    if (!trimmedSummary) {
+      errs.summary = 'Please provide a brief summary of your project requirements.';
+    } else if (trimmedSummary.length < 15) {
+      errs.summary = 'Project summary must be at least 15 characters to help our team understand your scope.';
     }
 
     setErrors(errs);
-    return Object.keys(errs).length === 0;
+
+    if (Object.keys(errs).length > 0) {
+      const firstErrorKey = Object.keys(errs)[0];
+      const targetElement = document.getElementById(`enquiry-${firstErrorKey}`);
+      if (targetElement) {
+        targetElement.focus();
+      }
+      return false;
+    }
+
+    return true;
   };
 
   const handleChange = (
@@ -91,77 +187,48 @@ export const Contact: React.FC = () => {
     if (!validate()) return;
 
     setStatus('submitting');
-    const apiUrl = import.meta.env.VITE_CONTACT_API_URL;
+    const message = buildWhatsAppMessage(formData);
+    const waUrl = `https://wa.me/${BUSINESS_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
+    const apiUrl = import.meta.env.VITE_CONTACT_API_URL;
     try {
       if (apiUrl) {
-        const response = await fetch(apiUrl, {
+        await fetch(apiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         });
-
-        if (!response.ok) {
-          throw new Error(`Inquiry transmission failed (status ${response.status})`);
-        }
-
-        setStatus('success');
-        setFeedbackMessage('Thank you. Your inquiry has been transmitted directly to the Vision Cloud engineering desk. We will review your technical specifications within 24–48 business hours.');
-      } else {
-        // Transparent frontend prototype handling without pretending an email was sent over non-existent backend
-        await new Promise((resolve) => setTimeout(resolve, 600));
-        console.info('[Vision Cloud] Validated Inquiry Payload:', formData);
-        setStatus('success');
-        setFeedbackMessage(
-          'Inquiry validated successfully! Note: A live backend endpoint (VITE_CONTACT_API_URL) is not currently configured in this environment, so this form operates as a frontend prototype. For immediate real-time response, please connect directly with our engineering lead via WhatsApp below.'
-        );
       }
-    } catch (err: any) {
-      setStatus('error');
-      setFeedbackMessage(
-        err.message || 'Unable to submit your inquiry at this moment. Please check your network and try again.'
-      );
+    } catch (err) {
+      console.warn('[Vision Cloud] Backend enquiry logging warning:', err);
     }
+
+    // Attempt to open WhatsApp directly in a new window/tab
+    try {
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    } catch (err) {
+      console.warn('[Vision Cloud] Browser prevented auto-opening WhatsApp popup:', err);
+    }
+
+    setSubmittedWaUrl(waUrl);
+    setSubmittedMessage(message);
+    setStatus('success');
   };
 
   const handleReset = () => {
     setFormData({
       name: '',
-      email: '',
       company: '',
-      projectType: 'Custom Software Engineering',
-      estimatedBudget: 'Undetermined / Needs Assessment',
-      description: ''
+      email: '',
+      phone: '',
+      service: SERVICE_OPTIONS[0],
+      summary: ''
     });
     setErrors({});
     setStatus('idle');
+    setSubmittedMessage('');
+    setSubmittedWaUrl('');
   };
-
-  // Prefilled WhatsApp URL
-  const whatsAppMessage = encodeURIComponent(
-    `Hello Vision Cloud engineering lead, my name is ${formData.name || '[Your Name]'}. I am inquiring about: ${formData.projectType}. ${formData.description ? `Project summary: ${formData.description}` : ''}`
-  );
-  const whatsAppUrl = `https://wa.me/919345688752?text=${whatsAppMessage}`;
-
-  const projectTypeOptions = [
-    'Custom Software Engineering',
-    'Web Application Development',
-    'Mobile Application Development',
-    'Cloud Solutions & Infrastructure',
-    'UI/UX & Digital Product Design',
-    'AI and Intelligent Systems',
-    'Enterprise Business Systems',
-    'Technical Consulting & Architecture Review',
-    'Product Integration / Tooling Inquiry'
-  ];
-
-  const budgetOptions = [
-    'Undetermined / Needs Technical Assessment',
-    'Discovery Phase / Technical Blueprint ($2,500 - $5,000)',
-    'Sprint Tier 1 ($5,000 - $15,000)',
-    'Sprint Tier 2 ($15,000 - $35,000)',
-    'Enterprise Architecture ($35,000+)'
-  ];
 
   return (
     <div className="page-contact">
@@ -184,7 +251,7 @@ export const Contact: React.FC = () => {
         </Container>
       </section>
 
-      {/* Main Grid: Info + Form */}
+      {/* Main Grid: Channels + Enquiry Form */}
       <section className="section-pad bg-cream">
         <Container>
           <div className="split-editorial" style={{ alignItems: 'flex-start', gap: '3.5rem' }}>
@@ -199,7 +266,7 @@ export const Contact: React.FC = () => {
                 </p>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2.5rem' }}>
-                  {/* WhatsApp */}
+                  {/* Real-Time WhatsApp Chat Card (Completely independent from form state) */}
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', padding: '1.25rem', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)' }}>
                     <div style={{ color: '#27AE60', padding: '0.5rem', backgroundColor: 'rgba(39, 174, 96, 0.1)', borderRadius: 'var(--radius-sm)' }}>
                       <MessageSquare size={22} />
@@ -212,21 +279,21 @@ export const Contact: React.FC = () => {
                         WhatsApp Technical Desk
                       </h4>
                       <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
-                        Direct line for rapid discovery discussions, scope queries, and milestone check-ins.
+                        Connect directly with our engineering team to discuss your requirements.
                       </p>
                       <a
-                        href={whatsAppUrl}
+                        href={DIRECT_WHATSAPP_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn btn--terracotta btn--sm"
                       >
                         <MessageSquare size={14} />
-                        <span>Chat on WhatsApp (+91 93456 88752)</span>
+                        <span>Chat on WhatsApp</span>
                       </a>
                     </div>
                   </div>
 
-                  {/* Email */}
+                  {/* Email Desk */}
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', padding: '1.25rem', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)' }}>
                     <div style={{ color: 'var(--color-mocha)', padding: '0.5rem', backgroundColor: 'var(--color-subtle-beige)', borderRadius: 'var(--radius-sm)' }}>
                       <Mail size={22} />
@@ -273,7 +340,7 @@ export const Contact: React.FC = () => {
               </div>
             </Reveal>
 
-            {/* Right Column: Project Inquiry Form */}
+            {/* Right Column: Project Enquiry Form */}
             <Reveal delayMs={150}>
               <div
                 style={{
@@ -285,44 +352,104 @@ export const Contact: React.FC = () => {
                 }}
               >
                 {status === 'success' ? (
-                  <div style={{ textAlign: 'center', padding: '2rem 1rem' }} role="status">
-                    <div style={{ width: '56px', height: '56px', borderRadius: '50%', backgroundColor: 'rgba(39, 174, 96, 0.1)', color: '#27AE60', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}>
+                  <div style={{ textAlign: 'center', padding: '1.5rem 0.5rem' }} role="status">
+                    <div
+                      style={{
+                        width: '56px',
+                        height: '56px',
+                        borderRadius: '50%',
+                        backgroundColor: 'rgba(39, 174, 96, 0.12)',
+                        color: '#27AE60',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: '0 auto 1.25rem'
+                      }}
+                    >
                       <CheckCircle2 size={32} />
                     </div>
-                    <h3 className="heading-md" style={{ marginBottom: '0.75rem' }}>Inquiry Processed</h3>
+
+                    <span className="badge badge--terracotta" style={{ marginBottom: '0.5rem' }}>
+                      ENQUIRY READY FOR WHATSAPP
+                    </span>
+
+                    <h3 className="heading-md" style={{ marginBottom: '0.75rem', color: 'var(--color-mocha)' }}>
+                      Enquiry Formatted for WhatsApp
+                    </h3>
+
                     <p style={{ fontSize: '0.95rem', lineHeight: '1.65', marginBottom: '1.5rem', color: 'var(--color-graphite-dark)' }}>
-                      {feedbackMessage}
+                      Your enquiry has been prepared with your details. WhatsApp should open in a new tab.
+                      <strong style={{ display: 'block', marginTop: '0.5rem', color: 'var(--color-mocha)' }}>
+                        Please press "Send" in WhatsApp to deliver your enquiry directly to our team.
+                      </strong>
                     </p>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', maxWidth: '320px', margin: '0 auto' }}>
+                    <div style={{ textAlign: 'left', marginBottom: '1.75rem' }}>
+                      <span
+                        style={{
+                          display: 'block',
+                          fontSize: '0.75rem',
+                          fontFamily: 'var(--font-mono)',
+                          color: 'var(--color-terracotta)',
+                          fontWeight: 600,
+                          marginBottom: '0.4rem',
+                          letterSpacing: '0.05em'
+                        }}
+                      >
+                        MESSAGE PREVIEW:
+                      </span>
+                      <pre
+                        style={{
+                          backgroundColor: 'var(--color-subtle-beige)',
+                          border: '1px solid var(--border-default)',
+                          borderRadius: 'var(--radius-sm)',
+                          padding: '1.25rem',
+                          fontSize: '0.825rem',
+                          fontFamily: 'var(--font-mono)',
+                          color: 'var(--color-mocha)',
+                          whiteSpace: 'pre-wrap',
+                          lineHeight: '1.6',
+                          maxHeight: '260px',
+                          overflowY: 'auto'
+                        }}
+                      >
+                        {submittedMessage}
+                      </pre>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', maxWidth: '360px', margin: '0 auto' }}>
                       <a
-                        href={whatsAppUrl}
+                        href={submittedWaUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn--terracotta btn--block"
+                        className="btn btn--primary btn--block"
                       >
                         <MessageSquare size={16} />
-                        <span>Send via WhatsApp (+91 93456 88752)</span>
+                        <span>Continue in WhatsApp (+91 93456 88752)</span>
                       </a>
                       <button
                         type="button"
                         onClick={handleReset}
                         className="btn btn--outline btn--sm"
                       >
-                        Submit Another Inquiry
+                        Submit Another Enquiry
                       </button>
                     </div>
+
+                    <p style={{ marginTop: '1.25rem', fontSize: '0.775rem', color: 'var(--color-graphite)', margin: '1.25rem 0 0' }}>
+                      If WhatsApp did not launch automatically, click "Continue in WhatsApp" above.
+                    </p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} noValidate>
                     <div style={{ marginBottom: '1.5rem' }}>
                       <span className="badge badge--terracotta" style={{ marginBottom: '0.5rem' }}>
-                        TECHNICAL INQUIRY
+                        PROJECT ENQUIRY
                       </span>
-                      <h3 className="heading-md" style={{ color: 'var(--color-mocha)' }}>
-                        Project Scope Form
+                      <h3 className="heading-md" style={{ color: 'var(--color-mocha)', marginBottom: '0.25rem' }}>
+                        Project Scope & Requirements
                       </h3>
-                      <p style={{ fontSize: '0.875rem', color: 'var(--color-graphite)' }}>
+                      <p style={{ fontSize: '0.875rem', color: 'var(--color-graphite)', margin: 0 }}>
                         Fields marked with <span style={{ color: 'var(--color-terracotta)' }}>*</span> are required.
                       </p>
                     </div>
@@ -344,133 +471,150 @@ export const Contact: React.FC = () => {
                         role="alert"
                       >
                         <AlertCircle size={16} />
-                        <span>{feedbackMessage}</span>
+                        <span>Unable to process your enquiry. Please check your entries and try again.</span>
                       </div>
                     )}
 
+                    {/* Field 1: Full Name & Field 2: Business / Company Name */}
                     <div className="grid-2" style={{ gap: '1rem', marginBottom: '0' }}>
-                      {/* Name */}
+                      {/* 1. Full Name (Required) */}
                       <div className="form-group">
-                        <label htmlFor="contact-name" className="form-label">
+                        <label htmlFor="enquiry-name" className="form-label">
                           Full Name <span style={{ color: 'var(--color-terracotta)' }}>*</span>
                         </label>
                         <input
                           type="text"
-                          id="contact-name"
+                          id="enquiry-name"
                           name="name"
                           value={formData.name}
                           onChange={handleChange}
-                          placeholder="e.g. Alex Morgan"
+                          placeholder="e.g. Sarah Connor"
                           className={`form-input ${errors.name ? 'input-error' : ''}`}
                           aria-invalid={!!errors.name}
                           aria-describedby={errors.name ? 'err-name' : undefined}
                           required
+                          autoComplete="name"
                         />
                         {errors.name && (
                           <span id="err-name" className="form-field-error">{errors.name}</span>
                         )}
                       </div>
 
-                      {/* Email */}
+                      {/* 2. Business or Company Name (Optional) */}
                       <div className="form-group">
-                        <label htmlFor="contact-email" className="form-label">
-                          Work Email <span style={{ color: 'var(--color-terracotta)' }}>*</span>
+                        <label htmlFor="enquiry-company" className="form-label">
+                          Business or Company Name{' '}
+                          <span style={{ fontSize: '0.75rem', color: 'var(--color-graphite)', fontWeight: 400 }}>
+                            (Optional)
+                          </span>
+                        </label>
+                        <input
+                          type="text"
+                          id="enquiry-company"
+                          name="company"
+                          value={formData.company}
+                          onChange={handleChange}
+                          placeholder="e.g. Acme Technologies"
+                          className="form-input"
+                          autoComplete="organization"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Field 3: Email Address & Field 4: Mobile Number */}
+                    <div className="grid-2" style={{ gap: '1rem', marginBottom: '0' }}>
+                      {/* 3. Email Address (Required) */}
+                      <div className="form-group">
+                        <label htmlFor="enquiry-email" className="form-label">
+                          Email Address <span style={{ color: 'var(--color-terracotta)' }}>*</span>
                         </label>
                         <input
                           type="email"
-                          id="contact-email"
+                          id="enquiry-email"
                           name="email"
                           value={formData.email}
                           onChange={handleChange}
-                          placeholder="alex@company.com"
+                          placeholder="name@company.com"
                           className={`form-input ${errors.email ? 'input-error' : ''}`}
                           aria-invalid={!!errors.email}
                           aria-describedby={errors.email ? 'err-email' : undefined}
                           required
+                          autoComplete="email"
                         />
                         {errors.email && (
                           <span id="err-email" className="form-field-error">{errors.email}</span>
                         )}
                       </div>
-                    </div>
 
-                    <div className="grid-2" style={{ gap: '1rem', marginBottom: '0' }}>
-                      {/* Company (Optional) */}
+                      {/* 4. Mobile Number (Required) */}
                       <div className="form-group">
-                        <label htmlFor="contact-company" className="form-label">
-                          Company / Organization <span style={{ fontSize: '0.75rem', color: 'var(--color-graphite)' }}>(Optional)</span>
+                        <label htmlFor="enquiry-phone" className="form-label">
+                          Mobile Number <span style={{ color: 'var(--color-terracotta)' }}>*</span>
                         </label>
                         <input
-                          type="text"
-                          id="contact-company"
-                          name="company"
-                          value={formData.company}
+                          type="tel"
+                          id="enquiry-phone"
+                          name="phone"
+                          value={formData.phone}
                           onChange={handleChange}
-                          placeholder="Your Company Name"
-                          className="form-input"
+                          placeholder="e.g. +91 93456 88752"
+                          className={`form-input ${errors.phone ? 'input-error' : ''}`}
+                          aria-invalid={!!errors.phone}
+                          aria-describedby={errors.phone ? 'err-phone' : undefined}
+                          required
+                          autoComplete="tel"
                         />
-                      </div>
-
-                      {/* Project Type */}
-                      <div className="form-group">
-                        <label htmlFor="contact-type" className="form-label">
-                          Primary Engineering Need <span style={{ color: 'var(--color-terracotta)' }}>*</span>
-                        </label>
-                        <select
-                          id="contact-type"
-                          name="projectType"
-                          value={formData.projectType}
-                          onChange={handleChange}
-                          className="form-select"
-                        >
-                          {projectTypeOptions.map((opt) => (
-                            <option key={opt} value={opt}>
-                              {opt}
-                            </option>
-                          ))}
-                        </select>
+                        {errors.phone && (
+                          <span id="err-phone" className="form-field-error">{errors.phone}</span>
+                        )}
                       </div>
                     </div>
 
-                    {/* Estimated Budget (Optional) */}
+                    {/* Field 5: Service Required (Required Dropdown) */}
                     <div className="form-group">
-                      <label htmlFor="contact-budget" className="form-label">
-                        Estimated Budget Bracket <span style={{ fontSize: '0.75rem', color: 'var(--color-graphite)' }}>(Optional)</span>
+                      <label htmlFor="enquiry-service" className="form-label">
+                        Service Required <span style={{ color: 'var(--color-terracotta)' }}>*</span>
                       </label>
                       <select
-                        id="contact-budget"
-                        name="estimatedBudget"
-                        value={formData.estimatedBudget}
+                        id="enquiry-service"
+                        name="service"
+                        value={formData.service}
                         onChange={handleChange}
-                        className="form-select"
+                        className={`form-select ${errors.service ? 'input-error' : ''}`}
+                        aria-invalid={!!errors.service}
+                        aria-describedby={errors.service ? 'err-service' : undefined}
+                        required
                       >
-                        {budgetOptions.map((b) => (
-                          <option key={b} value={b}>
-                            {b}
+                        {SERVICE_OPTIONS.map((opt) => (
+                          <option key={opt} value={opt}>
+                            {opt}
                           </option>
                         ))}
                       </select>
+                      {errors.service && (
+                        <span id="err-service" className="form-field-error">{errors.service}</span>
+                      )}
                     </div>
 
-                    {/* Project Description */}
+                    {/* Field 6: Project Summary (Required Textarea) */}
                     <div className="form-group">
-                      <label htmlFor="contact-desc" className="form-label">
-                        Project Description & Scope <span style={{ color: 'var(--color-terracotta)' }}>*</span>
+                      <label htmlFor="enquiry-summary" className="form-label">
+                        Project Summary <span style={{ color: 'var(--color-terracotta)' }}>*</span>
                       </label>
                       <textarea
-                        id="contact-desc"
-                        name="description"
-                        rows={4}
-                        value={formData.description}
+                        id="enquiry-summary"
+                        name="summary"
+                        rows={5}
+                        value={formData.summary}
                         onChange={handleChange}
-                        placeholder="Please describe your key objectives, users, integrations, timeline targets, or architectural challenges..."
-                        className={`form-textarea ${errors.description ? 'input-error' : ''}`}
-                        aria-invalid={!!errors.description}
-                        aria-describedby={errors.description ? 'err-desc' : undefined}
+                        placeholder="Please describe your key objectives, requirements, target timeline, or architectural challenges..."
+                        className={`form-textarea ${errors.summary ? 'input-error' : ''}`}
+                        aria-invalid={!!errors.summary}
+                        aria-describedby={errors.summary ? 'err-summary' : undefined}
                         required
                       />
-                      {errors.description && (
-                        <span id="err-desc" className="form-field-error">{errors.description}</span>
+                      {errors.summary && (
+                        <span id="err-summary" className="form-field-error">{errors.summary}</span>
                       )}
                     </div>
 
@@ -481,13 +625,13 @@ export const Contact: React.FC = () => {
                       size="lg"
                       block={true}
                       disabled={status === 'submitting'}
-                      icon={status === 'submitting' ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                      icon={status === 'submitting' ? <Loader2 size={16} className="animate-spin" /> : <MessageSquare size={16} />}
                     >
-                      {status === 'submitting' ? 'Verifying Inquiry...' : 'Submit Project Inquiry'}
+                      {status === 'submitting' ? 'Preparing WhatsApp Message...' : 'Send Enquiry via WhatsApp'}
                     </Button>
 
-                    <p style={{ marginTop: '1rem', fontSize: '0.775rem', color: 'var(--color-graphite)', textAlign: 'center', lineHeight: '1.4' }}>
-                      Transparent frontend submission. Prepares clean payload for your backend or triggers WhatsApp direct chat.
+                    <p style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--color-graphite)', textAlign: 'center', lineHeight: '1.45' }}>
+                      Submitting prepares your enquiry and opens WhatsApp with your message formatted. Press <strong>Send</strong> in WhatsApp to deliver your project requirements directly to our engineering desk.
                     </p>
                   </form>
                 )}
