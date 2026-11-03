@@ -16,24 +16,30 @@ export const Projects: React.FC = () => {
     'Explore our authentic software implementations, commercial web platforms, mobile applications, and infrastructure initiatives.'
   );
 
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory>('All');
-  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
-
   const categories: ProjectCategory[] = [
-    'All',
-    'Web Applications',
-    'Mobile Solutions',
-    'Cloud & Infrastructure'
+    'All Projects',
+    'Websites & Platforms',
+    'Business & Booking Systems',
+    'Messaging & Mobile Apps',
+    'Servers & Infrastructure'
   ];
 
-  const serverProject = projectsData.find((p) => p.id === 'vision-cloud-server');
-  const gridProjects = projectsData.filter((p) => p.id !== 'vision-cloud-server');
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory>('All Projects');
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
-  const visibleGridProjects = activeCategory === 'All'
-    ? gridProjects
-    : gridProjects.filter((p) => p.category === activeCategory);
+  // Filter projects by category
+  const filteredProjects = activeCategory === 'All Projects'
+    ? projectsData
+    : projectsData.filter((p) => p.categories.includes(activeCategory));
 
-  const showServerProject = activeCategory === 'All' || activeCategory === 'Cloud & Infrastructure';
+  const visibleGridProjects = filteredProjects.filter((p) => p.id !== 'vision-cloud-server');
+  const showServerProject = filteredProjects.some((p) => p.id === 'vision-cloud-server');
+
+  // Count helper
+  const getCategoryCount = (cat: ProjectCategory) => {
+    if (cat === 'All Projects') return projectsData.length;
+    return projectsData.filter((p) => p.categories.includes(cat)).length;
+  };
 
   return (
     <div className="page-projects">
@@ -54,30 +60,30 @@ export const Projects: React.FC = () => {
             </div>
           </Reveal>
 
-          {/* Category Filters */}
+          {/* Redesigned Projects Filter Bar */}
           <Reveal delayMs={150}>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '2.5rem' }}>
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setActiveCategory(cat)}
-                  style={{
-                    padding: '0.5rem 1rem',
-                    fontSize: '0.85rem',
-                    fontFamily: 'var(--font-mono)',
-                    borderRadius: 'var(--radius-xs)',
-                    border: '1px solid',
-                    borderColor: activeCategory === cat ? 'var(--color-terracotta)' : 'var(--border-default)',
-                    backgroundColor: activeCategory === cat ? 'var(--color-mocha)' : 'var(--bg-surface)',
-                    color: activeCategory === cat ? 'var(--color-warm-ivory)' : 'var(--color-mocha)',
-                    cursor: 'pointer',
-                    transition: 'all var(--transition-fast)'
-                  }}
-                >
-                  {cat}
-                </button>
-              ))}
+            <div
+              className="projects-filter-bar"
+              role="toolbar"
+              aria-label="Filter projects by engineering domain"
+            >
+              {categories.map((cat) => {
+                const isActive = activeCategory === cat;
+                const count = getCategoryCount(cat);
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setActiveCategory(cat)}
+                    className={`projects-filter-btn ${isActive ? 'is-active' : ''}`}
+                    aria-pressed={isActive}
+                    aria-label={`Show ${cat} (${count} projects)`}
+                  >
+                    <span>{cat}</span>
+                    <span className="projects-filter-btn__count">{count}</span>
+                  </button>
+                );
+              })}
             </div>
           </Reveal>
         </Container>
@@ -86,7 +92,7 @@ export const Projects: React.FC = () => {
       {/* Projects Grid Section */}
       <section className="section-pad bg-cream">
         <Container>
-          {/* Web & Mobile Projects Grid */}
+          {/* Web, Business & Mobile Projects Grid */}
           {visibleGridProjects.length > 0 && (
             <div className="grid-2" style={{ gap: '3rem' }}>
               {visibleGridProjects.map((project) => (
@@ -102,8 +108,8 @@ export const Projects: React.FC = () => {
                       backgroundColor: 'var(--bg-surface)'
                     }}
                   >
-                    {/* Project Visual Link */}
-                    <div style={{ height: '280px', position: 'relative', overflow: 'hidden' }}>
+                    {/* Consistent 16:9 Image Container */}
+                    <div className="project-card__image-container">
                       {project.liveUrl ? (
                         <a
                           href={project.liveUrl}
@@ -116,7 +122,7 @@ export const Projects: React.FC = () => {
                             src={project.imageSrc}
                             alt={project.title}
                             loading="lazy"
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            className="project-card__image"
                           />
                           <span className="project-card__overlay-pill">
                             <span>Visit Live Website</span>
@@ -141,7 +147,7 @@ export const Projects: React.FC = () => {
                             src={project.imageSrc}
                             alt={project.title}
                             loading="lazy"
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            className="project-card__image"
                           />
                           <span className="project-card__overlay-pill">
                             <span>View Specifications</span>
@@ -150,6 +156,7 @@ export const Projects: React.FC = () => {
                         </div>
                       )}
 
+                      {/* Domain Badge */}
                       <div style={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 2, pointerEvents: 'none' }}>
                         <span
                           style={{
@@ -171,6 +178,7 @@ export const Projects: React.FC = () => {
                         </span>
                       </div>
 
+                      {/* Status Badge */}
                       <div style={{ position: 'absolute', top: '1rem', right: '1rem', zIndex: 2, pointerEvents: 'none' }}>
                         <span
                           style={{
@@ -259,86 +267,116 @@ export const Projects: React.FC = () => {
           )}
 
           {/* Dedicated Server & Deployment Project Section (Two-Column Layout) */}
-          {showServerProject && serverProject && (
+          {showServerProject && (
             <Reveal delayMs={100}>
-              <div className="server-project-section" id="vision-cloud-server-section">
+              <div
+                className="server-project-section"
+                id="vision-cloud-server-section"
+                style={{ marginTop: visibleGridProjects.length > 0 ? '3.5rem' : '0' }}
+              >
                 <div className="server-project-grid">
                   {/* Left Column: Project Information */}
-                  <div>
-                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-                      <Badge variant="inverse">{serverProject.category}</Badge>
-                      <Badge variant="terracotta">{serverProject.status}</Badge>
-                    </div>
+                  {(() => {
+                    const sProject = projectsData.find((p) => p.id === 'vision-cloud-server');
+                    if (!sProject) return null;
+                    return (
+                      <div>
+                        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+                          <span
+                            style={{
+                              fontSize: '0.72rem',
+                              fontFamily: 'var(--font-mono)',
+                              padding: '0.25rem 0.65rem',
+                              backgroundColor: 'rgba(243, 238, 232, 0.1)',
+                              color: 'var(--color-warm-ivory)',
+                              borderRadius: 'var(--radius-xs)',
+                              border: '1px solid rgba(243, 238, 232, 0.2)'
+                            }}
+                          >
+                            {sProject.category}
+                          </span>
+                          <Badge variant="terracotta">{sProject.status}</Badge>
+                        </div>
 
-                    <h2 className="heading-lg" style={{ color: 'var(--color-warm-ivory)', marginBottom: '1rem' }}>
-                      {serverProject.title}
-                    </h2>
+                        <h2 className="heading-lg" style={{ color: 'var(--color-warm-ivory)', marginBottom: '1rem' }}>
+                          {sProject.title}
+                        </h2>
 
-                    <p style={{ fontSize: '1.025rem', lineHeight: '1.65', color: '#D2C8BE', marginBottom: '1.5rem' }}>
-                      {serverProject.shortDescription}
-                    </p>
+                        <p style={{ fontSize: '1.025rem', lineHeight: '1.65', color: '#D2C8BE', marginBottom: '1.5rem' }}>
+                          {sProject.shortDescription}
+                        </p>
 
-                    <div style={{ marginBottom: '1.5rem', borderRadius: 'var(--radius-md)', overflow: 'hidden', border: '1px solid rgba(243, 238, 232, 0.12)', maxHeight: '220px' }}>
-                      <img
-                        src={serverProject.imageSrc}
-                        alt="Vision Cloud Server Infrastructure Hardware"
-                        loading="lazy"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                    </div>
-
-                    <div style={{ marginBottom: '1.5rem' }}>
-                      <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-terracotta-soft)', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'block', marginBottom: '0.65rem' }}>
-                        Verified Infrastructure Scope Completed:
-                      </span>
-                      <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.45rem', padding: 0, margin: 0 }}>
-                        <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: '#D2C8BE' }}>
-                          <CheckCircle2 size={16} className="text-terracotta" style={{ marginTop: '0.15rem', flexShrink: 0 }} />
-                          <span>Dedicated Ubuntu Linux host setup with systemd process supervision</span>
-                        </li>
-                        <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: '#D2C8BE' }}>
-                          <CheckCircle2 size={16} className="text-terracotta" style={{ marginTop: '0.15rem', flexShrink: 0 }} />
-                          <span>Nginx edge reverse proxy with automated Let's Encrypt TLS certificate renewal</span>
-                        </li>
-                        <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: '#D2C8BE' }}>
-                          <CheckCircle2 size={16} className="text-terracotta" style={{ marginTop: '0.15rem', flexShrink: 0 }} />
-                          <span>Containerized service orchestration via Docker Compose with network isolation</span>
-                        </li>
-                        <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: '#D2C8BE' }}>
-                          <CheckCircle2 size={16} className="text-terracotta" style={{ marginTop: '0.15rem', flexShrink: 0 }} />
-                          <span>Automated deployment shell scripts paired with HTTP probe verification</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '1.75rem' }}>
-                      {serverProject.technologies.map((tech) => (
-                        <span
-                          key={tech}
+                        {/* Consistent 16:9 Image Showcase */}
+                        <div
+                          className="project-card__image-container"
                           style={{
-                            fontSize: '0.725rem',
-                            fontFamily: 'var(--font-mono)',
-                            padding: '0.2rem 0.55rem',
-                            borderRadius: 'var(--radius-xs)',
-                            backgroundColor: 'rgba(243, 238, 232, 0.08)',
-                            color: 'var(--color-warm-ivory)',
-                            border: '1px solid rgba(243, 238, 232, 0.12)'
+                            marginBottom: '1.5rem',
+                            borderRadius: 'var(--radius-md)',
+                            border: '1px solid rgba(243, 238, 232, 0.14)'
                           }}
                         >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                          <img
+                            src={sProject.imageSrc}
+                            alt="Vision Cloud Server Infrastructure Hardware"
+                            loading="lazy"
+                            className="project-card__image"
+                          />
+                        </div>
 
-                    <button
-                      type="button"
-                      onClick={() => setSelectedProject(serverProject)}
-                      className="btn btn--outline-inverse btn--sm"
-                    >
-                      <span>View Full Infrastructure Blueprint</span>
-                      <ArrowUpRight size={14} />
-                    </button>
-                  </div>
+                        <div style={{ marginBottom: '1.5rem' }}>
+                          <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-terracotta-soft)', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'block', marginBottom: '0.65rem' }}>
+                            Verified Infrastructure Scope Completed:
+                          </span>
+                          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.45rem', padding: 0, margin: 0 }}>
+                            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: '#D2C8BE' }}>
+                              <CheckCircle2 size={16} className="text-terracotta" style={{ marginTop: '0.15rem', flexShrink: 0 }} />
+                              <span>Dedicated Ubuntu Linux host setup with systemd process supervision</span>
+                            </li>
+                            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: '#D2C8BE' }}>
+                              <CheckCircle2 size={16} className="text-terracotta" style={{ marginTop: '0.15rem', flexShrink: 0 }} />
+                              <span>Nginx edge reverse proxy with automated Let's Encrypt TLS certificate renewal</span>
+                            </li>
+                            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: '#D2C8BE' }}>
+                              <CheckCircle2 size={16} className="text-terracotta" style={{ marginTop: '0.15rem', flexShrink: 0 }} />
+                              <span>Containerized service orchestration via Docker Compose with network isolation</span>
+                            </li>
+                            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: '#D2C8BE' }}>
+                              <CheckCircle2 size={16} className="text-terracotta" style={{ marginTop: '0.15rem', flexShrink: 0 }} />
+                              <span>Automated deployment shell scripts paired with HTTP probe verification</span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '1.75rem' }}>
+                          {sProject.technologies.map((tech) => (
+                            <span
+                              key={tech}
+                              style={{
+                                fontSize: '0.725rem',
+                                fontFamily: 'var(--font-mono)',
+                                padding: '0.2rem 0.55rem',
+                                borderRadius: 'var(--radius-xs)',
+                                backgroundColor: 'rgba(243, 238, 232, 0.08)',
+                                color: 'var(--color-warm-ivory)',
+                                border: '1px solid rgba(243, 238, 232, 0.12)'
+                              }}
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => setSelectedProject(sProject)}
+                          className="btn btn--outline-inverse btn--sm"
+                        >
+                          <span>View Full Infrastructure Blueprint</span>
+                          <ArrowUpRight size={14} />
+                        </button>
+                      </div>
+                    );
+                  })()}
 
                   {/* Right Column: Animated Deployment Status Panel */}
                   <div style={{ width: '100%' }}>

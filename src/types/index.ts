@@ -27,10 +27,11 @@ export interface ProductItem {
 }
 
 export type ProjectCategory = 
-  | 'All' 
-  | 'Web Applications' 
-  | 'Mobile Solutions' 
-  | 'Cloud & Infrastructure';
+  | 'All Projects' 
+  | 'Websites & Platforms' 
+  | 'Business & Booking Systems' 
+  | 'Messaging & Mobile Apps' 
+  | 'Servers & Infrastructure';
 
 export type ProjectStatusType = 'Completed' | 'In Development' | 'Deployment in Progress';
 
@@ -38,6 +39,7 @@ export interface ProjectItem {
   id: string;
   title: string;
   category: ProjectCategory;
+  categories: ProjectCategory[];
   shortDescription: string;
   fullDescription: string;
   objectives: string[];

@@ -321,7 +321,7 @@ export const Home: React.FC = () => {
                     height: '100%'
                   }}
                 >
-                  <div style={{ height: '260px', overflow: 'hidden', position: 'relative' }}>
+                  <div className="project-card__image-container">
                     {project.liveUrl ? (
                       <a
                         href={project.liveUrl}
@@ -334,7 +334,7 @@ export const Home: React.FC = () => {
                           src={project.imageSrc}
                           alt={project.title}
                           loading="lazy"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          className="project-card__image"
                         />
                         <span className="project-card__overlay-pill">
                           <span>Visit Live Website</span>
@@ -359,7 +359,7 @@ export const Home: React.FC = () => {
                           src={project.imageSrc}
                           alt={project.title}
                           loading="lazy"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          className="project-card__image"
                         />
                         <span className="project-card__overlay-pill">
                           <span>View Specifications</span>

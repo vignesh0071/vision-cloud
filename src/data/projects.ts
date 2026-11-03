@@ -4,7 +4,8 @@ export const projectsData: ProjectItem[] = [
   {
     id: 'eshaka-cabs',
     title: 'Eshaka Cabs',
-    category: 'Web Applications',
+    category: 'Business & Booking Systems',
+    categories: ['Business & Booking Systems', 'Websites & Platforms'],
     shortDescription: 'A travel and cab booking website for Thoothukudi & Tuticorin, featuring one-way and round-trip booking, fleet selection, and direct booking confirmation.',
     fullDescription: 'Eshaka Cabs is a dedicated regional cab service website built for customers traveling across Thoothukudi, Tirunelveli, Madurai, Chennai, and broader Tamil Nadu. The platform presents the company fleet with clear vehicle categories (including Mahindra Xylo and Hyundai Xcent), offers interactive trip scheduling with pickup/drop locations and passenger counts, and enables streamlined booking inquiries via direct phone and WhatsApp integrations.',
     objectives: [
@@ -29,7 +30,8 @@ export const projectsData: ProjectItem[] = [
   {
     id: 'spl-courier',
     title: 'SPL Courier',
-    category: 'Web Applications',
+    category: 'Websites & Platforms',
+    categories: ['Websites & Platforms'],
     shortDescription: 'A commercial courier and logistics service website for SPL Worldwide Express in Thoothukudi, presenting domestic, international, and air cargo delivery services.',
     fullDescription: 'SPL Courier (SPL Worldwide Express) is a professional commercial logistics website engineered to represent the carrier\'s domestic and international shipping operations based in Thoothukudi. The platform provides clear visibility into available freight and express courier capabilities—including document shipping, parcel transit, and international air cargo—along with structured online service inquiry forms, contact coordination, and branch locations.',
     objectives: [
@@ -54,7 +56,8 @@ export const projectsData: ProjectItem[] = [
   {
     id: 'vynex-messenger',
     title: 'Vynex Messenger',
-    category: 'Mobile Solutions',
+    category: 'Messaging & Mobile Apps',
+    categories: ['Messaging & Mobile Apps'],
     shortDescription: 'A private, customized messaging application currently in active development, engineered with Firebase Authentication, real-time message sync, and user profile management.',
     fullDescription: 'Vynex Messenger is an independent, private messaging application engineered for streamlined personal communication. Currently in active development, the initial implementation focuses on reliable mobile-number verification via Firebase Phone Authentication, Cloud Firestore real-time message synchronization, conversation thread storage, and user profile management. The application features a custom dark-mode interface built for smooth mobile interactions.',
     objectives: [
@@ -71,14 +74,15 @@ export const projectsData: ProjectItem[] = [
       'Active development scope: Core messaging and profiles verified; media attachments in progress'
     ],
     status: 'In Development',
-    imageSrc: '/images/projects/vynex-messenger.jpg',
+    imageSrc: '/images/projects/vynex-messenger.png',
     visualType: 'cube',
     isConcept: false
   },
   {
     id: 'vision-cloud-server',
     title: 'Vision Cloud Server',
-    category: 'Cloud & Infrastructure',
+    category: 'Servers & Infrastructure',
+    categories: ['Servers & Infrastructure'],
     shortDescription: 'An ongoing infrastructure and deployment initiative establishing dedicated Linux hosting, reverse proxy routing, containerized runtimes, and deployment automation.',
     fullDescription: 'Vision Cloud Server is our internal engineering infrastructure and deployment initiative currently underway. Rather than claiming a finished commercial cloud platform, this initiative encompasses our hands-on infrastructure work: configuring dedicated Ubuntu Linux hosts, implementing edge reverse proxies with automated TLS certificate renewals, orchestrating microservices via Docker, and building reliable staging-to-production deployment scripts.',
     objectives: [
@@ -95,7 +99,7 @@ export const projectsData: ProjectItem[] = [
       'Active development scope: Core host setup and reverse proxy live; deployment automation undergoing testing'
     ],
     status: 'Deployment in Progress',
-    imageSrc: '/images/projects/vision-cloud-server.jpg',
+    imageSrc: '/images/projects/vision-cloud-server.png',
     visualType: 'analytics',
     isConcept: false
   }

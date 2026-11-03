@@ -525,10 +525,13 @@
 /* Layer 2: Poster Image */
 .cinematic-video__poster {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   z-index: 2;
   transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
@@ -541,10 +544,13 @@
 /* Layer 3: Video Element */
 .cinematic-video__element {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   pointer-events: none;
   z-index: 3;
   opacity: 0;
@@ -590,12 +596,13 @@
 /* ---------- HERO SECTION ---------- */
 .hero-viewport {
   position: relative;
-  min-height: calc(100vh - 80px);
-  min-height: calc(100dvh - 80px);
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   background-color: var(--color-mocha-cinema);
   width: 100%;
+  overflow: hidden;
 }
 
 .hero-video-bg {
@@ -603,6 +610,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .hero-video-bg .cinematic-video__content {
@@ -1247,6 +1256,126 @@
 @media (min-width: 1024px) {
   .team-grid {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---------- PROJECT CARD 16:9 IMAGE RATIO & FIT ---------- */
+.project-card__image-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  background-color: #1A1412;
+}
+
+.project-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+/* Individual object position adjustments preserving all critical content */
+.project-card__image--eshaka {
+  object-position: center center;
+}
+
+.project-card__image--spl {
+  object-position: center center;
+}
+
+.project-card__image--vynex {
+  object-position: center center;
+}
+
+.project-card__image--server {
+  object-position: center center;
+}
+
+/* ---------- PROJECTS FILTER BAR ---------- */
+.projects-filter-bar {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 2.25rem;
+  width: 100%;
+}
+
+.projects-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 42px;
+  min-height: 42px;
+  padding: 0 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-default);
+  background-color: var(--bg-surface);
+  color: var(--color-graphite);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  box-shadow: 0 1px 2px rgba(48, 39, 34, 0.04);
+}
+
+.projects-filter-btn:hover {
+  color: var(--color-mocha);
+  border-color: var(--color-terracotta);
+  background-color: #FAF6F1;
+}
+
+.projects-filter-btn:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+.projects-filter-btn.is-active {
+  background-color: #302722;
+  color: #F3EEE8;
+  border-color: #B97862;
+  box-shadow: 0 2px 8px rgba(48, 39, 34, 0.25), inset 0 0 0 1px rgba(185, 120, 98, 0.35);
+  font-weight: 600;
+}
+
+.projects-filter-btn__count {
+  font-size: 0.72rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 10px;
+  background-color: rgba(89, 96, 103, 0.12);
+  color: var(--color-graphite);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.projects-filter-btn.is-active .projects-filter-btn__count {
+  background-color: rgba(185, 120, 98, 0.3);
+  color: #F3EEE8;
+}
+
+@media (max-width: 640px) {
+  .projects-filter-bar {
+    gap: 0.5rem;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .projects-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .projects-filter-btn {
+    height: 38px;
+    min-height: 38px;
+    padding: 0 1rem;
+    font-size: 0.775rem;
+    flex-shrink: 0;
   }
 }
 

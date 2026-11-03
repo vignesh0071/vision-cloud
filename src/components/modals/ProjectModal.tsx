@@ -76,7 +76,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
         </div>
 
         {project.imageSrc && (
-          <div style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', marginBottom: '1.5rem', maxHeight: '320px', position: 'relative' }}>
+          <div
+            className="project-card__image-container"
+            style={{ borderRadius: 'var(--radius-md)', marginBottom: '1.5rem' }}
+          >
             {project.liveUrl ? (
               <a
                 href={project.liveUrl}
@@ -88,7 +91,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
                 <img
                   src={project.imageSrc}
                   alt={project.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  className="project-card__image"
                 />
                 <span className="project-card__overlay-pill">
                   <span>Visit Live Website</span>
@@ -99,7 +102,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
               <img
                 src={project.imageSrc}
                 alt={project.title}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                className="project-card__image"
               />
             )}
           </div>
