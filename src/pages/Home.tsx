@@ -63,7 +63,7 @@ export const Home: React.FC = () => {
   return (
     <div className="page-home">
       {/* SECTION A: CINEMATIC HERO */}
-      <section className="hero-viewport" style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <section className="hero-viewport">
         <CinematicVideoBackground
           videoSrc="/videos/hero-background.mp4.mp4"
           posterSrc="/images/hero-background-poster.jpg"
@@ -125,7 +125,7 @@ export const Home: React.FC = () => {
                   </div>
                 </Reveal>
 
-                <div style={{ marginTop: '2rem' }}>
+                <div className="hero-scroll-cue-wrapper">
                   <a
                     href="#section-intro"
                     onClick={handleScrollToNext}
