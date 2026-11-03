@@ -68,7 +68,7 @@ export const Process: React.FC = () => {
                     backgroundColor: 'var(--bg-surface)',
                     border: '1px solid var(--border-default)',
                     borderRadius: 'var(--radius-lg)',
-                    padding: 'clamp(2rem, 5vw, 3.5rem)',
+                    padding: 'clamp(1.25rem, 4vw, 3.5rem)',
                     boxShadow: 'var(--shadow-sm)'
                   }}
                 >

@@ -115,7 +115,7 @@ export const Projects: React.FC = () => {
                   </div>
 
                   {/* Project Content */}
-                  <div style={{ padding: '2.25rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div style={{ padding: 'clamp(1.25rem, 3.5vw, 2.25rem)', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
                       <h2 className="heading-md" style={{ marginBottom: '0.75rem', color: 'var(--color-mocha)' }}>
                         {project.title}

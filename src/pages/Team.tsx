@@ -70,7 +70,7 @@ export const Team: React.FC = () => {
                 backgroundColor: 'var(--color-subtle-beige)',
                 border: '1px solid var(--border-default)',
                 borderRadius: 'var(--radius-lg)',
-                padding: 'clamp(2rem, 5vw, 3.5rem)'
+                padding: 'clamp(1.25rem, 4vw, 3rem)'
               }}
             >
               <div style={{ maxWidth: '840px' }}>
@@ -87,8 +87,8 @@ export const Team: React.FC = () => {
                 <div
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                    gap: '1.5rem',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
+                    gap: '1.25rem',
                     marginTop: '2rem'
                   }}
                 >

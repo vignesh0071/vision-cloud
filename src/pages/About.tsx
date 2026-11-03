@@ -96,7 +96,7 @@ export const About: React.FC = () => {
               <div
                 style={{
                   backgroundColor: 'var(--bg-surface)',
-                  padding: '2.5rem',
+                  padding: 'clamp(1.25rem, 3.5vw, 2.5rem)',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border-default)'
                 }}
@@ -113,7 +113,7 @@ export const About: React.FC = () => {
               <div
                 style={{
                   backgroundColor: 'var(--bg-surface)',
-                  padding: '2.5rem',
+                  padding: 'clamp(1.25rem, 3.5vw, 2.5rem)',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border-default)'
                 }}
@@ -229,7 +229,7 @@ export const About: React.FC = () => {
                 backgroundColor: 'var(--color-subtle-beige)',
                 border: '1px solid var(--border-default)',
                 borderRadius: 'var(--radius-lg)',
-                padding: 'clamp(2rem, 5vw, 3.5rem)'
+                padding: 'clamp(1.25rem, 4vw, 3rem)'
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -243,7 +243,7 @@ export const About: React.FC = () => {
               <p style={{ fontSize: '1.025rem', lineHeight: '1.7', marginBottom: '1.5rem', maxWidth: '800px' }}>
                 Vision Cloud operates as an independent, remote-first software engineering studio. Rather than carrying the bloated administrative overhead of traditional consulting agencies, our team is comprised strictly of technical practitioners—senior software engineers, cloud architects, and product designers.
               </p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem', marginTop: '2rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '1.25rem', marginTop: '2rem' }}>
                 <div style={{ backgroundColor: 'var(--bg-surface)', padding: '1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--color-terracotta)', fontWeight: 600 }}>DISCIPLINE</span>
                   <h4 style={{ fontSize: '1rem', marginTop: '0.25rem' }}>Direct Engineering Access</h4>

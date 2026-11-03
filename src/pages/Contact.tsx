@@ -277,7 +277,7 @@ export const Contact: React.FC = () => {
               <div
                 style={{
                   backgroundColor: 'var(--bg-surface)',
-                  padding: 'clamp(2rem, 5vw, 3rem)',
+                  padding: 'clamp(1.25rem, 4vw, 2.75rem)',
                   borderRadius: 'var(--radius-lg)',
                   border: '1px solid var(--border-default)',
                   boxShadow: 'var(--shadow-md)'

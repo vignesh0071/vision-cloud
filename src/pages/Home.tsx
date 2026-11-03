@@ -515,7 +515,7 @@ export const Home: React.FC = () => {
       <section className="section-pad bg-ivory">
         <Container>
           <Reveal>
-            <div style={{ backgroundColor: 'var(--color-subtle-beige)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-lg)', padding: 'clamp(2rem, 5vw, 3.5rem)' }}>
+            <div style={{ backgroundColor: 'var(--color-subtle-beige)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-lg)', padding: 'clamp(1.25rem, 4vw, 3.5rem)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
                 <Sparkles size={18} className="text-terracotta" />
                 <Badge variant="terracotta">R&D AND TECHNICAL EXPLORATION</Badge>

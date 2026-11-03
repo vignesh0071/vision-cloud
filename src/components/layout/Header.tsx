@@ -36,6 +36,18 @@ export const Header: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Handle Escape key to close menus
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+        setServicesDropdownOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -214,10 +226,21 @@ export const Header: React.FC = () => {
       <div
         className={`mobile-drawer ${mobileMenuOpen ? 'is-open' : ''}`}
         aria-hidden={!mobileMenuOpen}
+        onClick={() => setMobileMenuOpen(false)}
       >
-        <div className="mobile-drawer__panel">
+        <div
+          className="mobile-drawer__panel"
+          onClick={(e) => e.stopPropagation()}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation menu"
+        >
           <div className="mobile-drawer__header">
-            <div className="site-brand">
+            <Link
+              to="/"
+              className="site-brand"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               <span className="site-brand__logo" aria-hidden="true">
                 <svg viewBox="0 0 32 32" width="18" height="18" fill="none">
                   <path
@@ -230,15 +253,15 @@ export const Header: React.FC = () => {
               <span className="site-brand__name">
                 VISION <span>CLOUD</span>
               </span>
-            </div>
+            </Link>
 
             <button
               type="button"
+              className="mobile-drawer__close"
               onClick={() => setMobileMenuOpen(false)}
               aria-label="Close menu"
-              style={{ padding: '0.4rem' }}
             >
-              <X size={22} />
+              <X size={20} />
             </button>
           </div>
 
@@ -247,6 +270,7 @@ export const Header: React.FC = () => {
               <Link
                 key={link.path}
                 to={link.path}
+                onClick={() => setMobileMenuOpen(false)}
                 className={`mobile-nav-link ${location.pathname === link.path ? 'is-active' : ''}`}
               >
                 <span>{link.title}</span>
@@ -256,6 +280,7 @@ export const Header: React.FC = () => {
 
             <Link
               to="/services"
+              onClick={() => setMobileMenuOpen(false)}
               className={`mobile-nav-link ${location.pathname === '/services' ? 'is-active' : ''}`}
             >
               <span>Services Overview</span>
@@ -265,6 +290,7 @@ export const Header: React.FC = () => {
             <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <Link
                 to="/contact"
+                onClick={() => setMobileMenuOpen(false)}
                 className="btn btn--primary btn--block"
               >
                 <span>Start a Project</span>
@@ -275,6 +301,7 @@ export const Header: React.FC = () => {
                 href="https://wa.me/919345688752?text=Hello%20Vision%20Cloud%20team%2C%20I%20would%20like%20to%20discuss%20a%20software%20engineering%20project."
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
                 className="btn btn--outline btn--block"
               >
                 <span>WhatsApp Engineering</span>

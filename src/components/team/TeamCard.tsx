@@ -21,7 +21,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({ member, className = '' }) =>
         backgroundColor: 'var(--bg-surface)',
         border: '1px solid var(--border-default)',
         borderRadius: 'var(--radius-md)',
-        padding: 'clamp(1.5rem, 2.5vw, 2rem)',
+        padding: 'clamp(1.15rem, 2.5vw, 1.85rem)',
         position: 'relative',
         transition: 'all var(--transition-base)'
       }}
@@ -143,7 +143,8 @@ export const TeamCard: React.FC<TeamCardProps> = ({ member, className = '' }) =>
             fontWeight: 600,
             color: 'var(--color-mocha)',
             textDecoration: 'none',
-            padding: '0.4rem 0',
+            padding: '0.65rem 0',
+            minHeight: '44px',
             transition: 'color var(--transition-fast)'
           }}
         >

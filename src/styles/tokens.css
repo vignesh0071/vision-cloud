@@ -85,3 +85,15 @@
   --transition-base: 280ms var(--ease-out-expo);
   --transition-slow: 480ms var(--ease-out-expo);
 }
+
+@media (max-width: 959px) {
+  :root {
+    --header-height: 68px;
+  }
+}
+
+@media (max-width: 479px) {
+  :root {
+    --header-height: 64px;
+  }
+}

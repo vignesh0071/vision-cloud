@@ -7,8 +7,8 @@
   max-width: var(--container-max);
   margin-left: auto;
   margin-right: auto;
-  padding-left: clamp(1.25rem, 4vw, 2.5rem);
-  padding-right: clamp(1.25rem, 4vw, 2.5rem);
+  padding-left: clamp(1rem, 3.5vw, 2.5rem);
+  padding-right: clamp(1rem, 3.5vw, 2.5rem);
 }
 
 .container--wide {
@@ -19,20 +19,20 @@
   max-width: var(--container-narrow);
 }
 
-/* Section Padding */
+/* Section Padding — Fluid & proportional across devices */
 .section-pad {
-  padding-top: clamp(4.5rem, 8vw, 7.5rem);
-  padding-bottom: clamp(4.5rem, 8vw, 7.5rem);
+  padding-top: clamp(3rem, 6vw, 6.5rem);
+  padding-bottom: clamp(3rem, 6vw, 6.5rem);
 }
 
 .section-pad--compact {
-  padding-top: clamp(3rem, 5vw, 5rem);
-  padding-bottom: clamp(3rem, 5vw, 5rem);
+  padding-top: clamp(2rem, 4vw, 4rem);
+  padding-bottom: clamp(2rem, 4vw, 4rem);
 }
 
 .section-pad--spacious {
-  padding-top: clamp(6rem, 11vw, 10rem);
-  padding-bottom: clamp(6rem, 11vw, 10rem);
+  padding-top: clamp(4rem, 8vw, 8rem);
+  padding-bottom: clamp(4rem, 8vw, 8rem);
 }
 
 /* Background Section Themes */
@@ -70,8 +70,12 @@
 .split-editorial {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(2rem, 5vw, 4.5rem);
+  gap: clamp(1.5rem, 4vw, 4.5rem);
   align-items: center;
+}
+
+.split-editorial > * {
+  min-width: 0;
 }
 
 @media (min-width: 900px) {
@@ -91,7 +95,11 @@
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.grid-2 > * {
+  min-width: 0;
 }
 
 @media (min-width: 768px) {
@@ -103,10 +111,14 @@
 .grid-3 {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(1.5rem, 2.5vw, 2rem);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
 }
 
-@media (min-width: 640px) {
+.grid-3 > * {
+  min-width: 0;
+}
+
+@media (min-width: 580px) {
   .grid-3 {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -121,10 +133,14 @@
 .grid-4 {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: clamp(1.25rem, 2vw, 1.75rem);
 }
 
-@media (min-width: 640px) {
+.grid-4 > * {
+  min-width: 0;
+}
+
+@media (min-width: 580px) {
   .grid-4 {
     grid-template-columns: repeat(2, 1fr);
   }

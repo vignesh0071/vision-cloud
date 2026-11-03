@@ -110,7 +110,7 @@ export const Products: React.FC = () => {
                   style={{
                     height: '100%',
                     justifyContent: 'space-between',
-                    padding: '2.5rem',
+                    padding: 'clamp(1.25rem, 3.5vw, 2.5rem)',
                     backgroundColor: 'var(--bg-surface)'
                   }}
                 >

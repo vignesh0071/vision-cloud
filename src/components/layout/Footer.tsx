@@ -153,7 +153,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal }) => {
           <button
             type="button"
             onClick={handleScrollToTop}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#B5ADA5', cursor: 'pointer' }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              color: '#B5ADA5',
+              cursor: 'pointer',
+              padding: '0.65rem 1rem',
+              minHeight: '44px',
+              minWidth: '44px'
+            }}
             aria-label="Back to top of page"
           >
             <span>Top</span>

@@ -87,7 +87,7 @@ export const TeamMember: React.FC = () => {
       {/* Main Profile Editorial Section */}
       <section className="section-pad bg-cream">
         <Container>
-          <div className="split-editorial" style={{ alignItems: 'flex-start', gap: '3.5rem' }}>
+          <div className="split-editorial" style={{ alignItems: 'flex-start', gap: 'clamp(2rem, 4vw, 3.5rem)' }}>
             {/* Left Column: Avatar & Quick Reference Card */}
             <Reveal>
               <div
@@ -95,7 +95,7 @@ export const TeamMember: React.FC = () => {
                   backgroundColor: 'var(--bg-surface)',
                   border: '1px solid var(--border-default)',
                   borderRadius: 'var(--radius-lg)',
-                  padding: 'clamp(2rem, 4vw, 2.75rem)',
+                  padding: 'clamp(1.25rem, 3.5vw, 2.5rem)',
                   boxShadow: 'var(--shadow-sm)'
                 }}
               >

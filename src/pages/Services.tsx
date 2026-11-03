@@ -113,7 +113,7 @@ export const Services: React.FC = () => {
                     backgroundColor: 'var(--bg-surface)',
                     borderRadius: 'var(--radius-lg)',
                     border: '1px solid var(--border-default)',
-                    padding: 'clamp(2rem, 5vw, 3.5rem)',
+                    padding: 'clamp(1.25rem, 4vw, 3.5rem)',
                     boxShadow: 'var(--shadow-sm)'
                   }}
                 >
