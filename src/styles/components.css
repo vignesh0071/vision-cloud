@@ -415,6 +415,12 @@
   visibility: visible;
 }
 
+@media (min-width: 960px) {
+  .mobile-drawer {
+    display: none !important;
+  }
+}
+
 .mobile-drawer__panel {
   position: absolute;
   top: 0;
@@ -585,8 +591,7 @@
 
 .hero-section {
   position: relative;
-  min-height: 100dvh;
-  min-height: 100vh;
+  flex: 1;
   display: flex;
   align-items: center;
   padding-top: calc(var(--header-height) + 1.25rem);
@@ -1137,10 +1142,6 @@
   border-radius: var(--radius-lg);
   max-width: 760px;
   width: 100%;
-  max-height: calc(100dvh - 2rem);
-  max-height: calc(100vh - 2rem);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   padding: clamp(1.25rem, 3.5vw, 2.25rem);
   position: relative;
   box-shadow: var(--shadow-lg);

@@ -21,6 +21,9 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-warm-grey-dark) transparent;
   width: 100%;
 }
 
@@ -31,7 +34,6 @@ body {
   min-height: 100dvh;
   line-height: 1.6;
   font-weight: 400;
-  overflow-x: hidden;
   width: 100%;
   position: relative;
   -webkit-text-size-adjust: 100%;
@@ -213,20 +215,20 @@ button {
 }
 
 /* Custom Scrollbar */
-::-webkit-scrollbar {
+html::-webkit-scrollbar {
   width: 8px;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-page);
+html::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+html::-webkit-scrollbar-thumb {
   background: var(--color-warm-grey-dark);
   border-radius: var(--radius-full);
 }
 
-::-webkit-scrollbar-thumb:hover {
+html::-webkit-scrollbar-thumb:hover {
   background: var(--color-graphite);
 }
 
