@@ -85,7 +85,9 @@ export const Home: React.FC = () => {
 
                 <Reveal delayMs={200}>
                   <h1 className="heading-display hero-section__title">
-                    Engineering Digital Experiences That Move Business Forward.
+                    Engineering Digital{' '}
+                    <span className="heading-accent heading-accent--champagne">Experiences</span>{' '}
+                    That Move Business Forward.
                   </h1>
                 </Reveal>
 
@@ -148,7 +150,8 @@ export const Home: React.FC = () => {
               <Reveal>
                 <Badge variant="default" style={{ marginBottom: '1.25rem' }}>WHO WE ARE</Badge>
                 <h2 className="heading-xl" style={{ marginBottom: '1.5rem', color: 'var(--color-mocha)' }}>
-                  A modern software engineering studio with an architectural mindset.
+                  A modern software engineering studio with an{' '}
+                  <span className="heading-accent heading-accent--terracotta">architectural mindset</span>.
                 </h2>
                 <p className="text-lead" style={{ marginBottom: '1.25rem' }}>
                   At Vision Cloud, software is not treated as disposable code. We treat every application, platform, and interface as durable digital architecture designed to withstand business evolution.
@@ -289,7 +292,9 @@ export const Home: React.FC = () => {
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '3rem', gap: '1.5rem' }}>
               <div>
                 <Badge variant="terracotta" style={{ marginBottom: '0.75rem' }}>WORK SHOWCASE</Badge>
-                <h2 className="heading-xl">Architectural Case Studies & Systems.</h2>
+                <h2 className="heading-xl">
+                  Architectural <span className="heading-accent heading-accent--terracotta">Case Studies</span> & Systems.
+                </h2>
               </div>
               <Button to="/projects" variant="outline" icon={<ArrowRight size={14} />}>
                 View All Projects
@@ -383,7 +388,8 @@ export const Home: React.FC = () => {
               <div>
                 <Badge variant="inverse" style={{ marginBottom: '1.25rem' }}>PHILOSOPHY & RIGOR</Badge>
                 <h2 className="heading-xl" style={{ color: 'var(--color-warm-ivory)', marginBottom: '1.5rem' }}>
-                  We engineer for resilience, precision, and longevity.
+                  We engineer for{' '}
+                  <span className="heading-accent heading-accent--champagne">resilience</span>, precision, and longevity.
                 </h2>
                 <p className="text-lead" style={{ color: 'var(--text-inverse-muted)', marginBottom: '1.5rem' }}>
                   Modern software is often built in haste, accumulating hidden technical debt that surfaces when scaling. Our approach balances rapid product delivery with foundational architectural integrity.
@@ -524,7 +530,8 @@ export const Home: React.FC = () => {
               <div className="split-editorial">
                 <div>
                   <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
-                    Vision Cloud Innovation Lab: Testing Tomorrow's Architectures Today.
+                    Vision Cloud Innovation Lab: Testing Tomorrow's Architectures{' '}
+                    <span className="heading-accent heading-accent--terracotta">Today</span>.
                   </h2>
                   <p style={{ fontSize: '1rem', lineHeight: '1.65', marginBottom: '1.5rem' }}>
                     Before recommending new paradigms to clients, we stress-test them internally. Our lab investigates local-first data sync (CRDTs), edge-hosted small language models, and high-throughput WebAssembly modules.
@@ -572,7 +579,8 @@ export const Home: React.FC = () => {
             <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
               <Badge variant="inverse" style={{ marginBottom: '1.25rem' }}>READY TO COLLABORATE?</Badge>
               <h2 className="heading-xl" style={{ color: 'var(--color-warm-ivory)', marginBottom: '1.25rem' }}>
-                Let's engineer your next digital solution.
+                Let's engineer your{' '}
+                <span className="heading-accent heading-accent--champagne">next digital solution</span>.
               </h2>
               <p className="text-lead" style={{ color: 'var(--text-inverse-muted)', marginBottom: '2.5rem' }}>
                 Whether you are launching a new digital venture, re-architecting an existing platform, or exploring custom internal systems, we are ready to discuss your goals.

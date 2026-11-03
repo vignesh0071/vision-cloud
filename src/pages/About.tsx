@@ -35,7 +35,8 @@ export const About: React.FC = () => {
             <div style={{ maxWidth: '820px' }}>
               <Badge variant="terracotta" style={{ marginBottom: '1rem' }}>ABOUT VISION CLOUD</Badge>
               <h1 className="heading-display" style={{ marginBottom: '1.25rem' }}>
-                Engineering Systems Built for Permanence and Purpose.
+                Engineering Systems Built for{' '}
+                <span className="heading-accent heading-accent--terracotta">Permanence</span> and Purpose.
               </h1>
               <p className="text-lead">
                 Vision Cloud is an independent digital engineering studio. We partner with ambitious organizations to design, construct, and scale production-grade software solutions with clarity, precision, and craftsmanship.
@@ -53,7 +54,8 @@ export const About: React.FC = () => {
               <div>
                 <Badge variant="default" style={{ marginBottom: '1rem' }}>ORIGIN & IDENTITY</Badge>
                 <h2 className="heading-lg" style={{ marginBottom: '1.25rem' }}>
-                  Why We Founded Vision Cloud
+                  Why We Founded{' '}
+                  <span className="heading-accent heading-accent--terracotta">Vision Cloud</span>
                 </h2>
                 <p style={{ marginBottom: '1rem', lineHeight: '1.7' }}>
                   Modern software development has too often devolved into disposable code, rushed prototypes, and fragile dependencies that collapse under production pressure. Many companies find themselves trapped with slow web applications, undocumented systems, and ballooning cloud expenses.
@@ -238,7 +240,8 @@ export const About: React.FC = () => {
               </div>
 
               <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
-                Our Operational Model: Independent & Distributed
+                Our Operational Model:{' '}
+                <span className="heading-accent heading-accent--terracotta">Independent & Distributed</span>
               </h2>
               <p style={{ fontSize: '1.025rem', lineHeight: '1.7', marginBottom: '1.5rem', maxWidth: '800px' }}>
                 Vision Cloud operates as an independent, remote-first software engineering studio. Rather than carrying the bloated administrative overhead of traditional consulting agencies, our team is comprised strictly of technical practitioners—senior software engineers, cloud architects, and product designers.
@@ -381,7 +384,8 @@ export const About: React.FC = () => {
             <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}>
               <Badge variant="inverse" style={{ marginBottom: '1rem' }}>LET'S COLLABORATE</Badge>
               <h2 className="heading-xl" style={{ color: 'var(--color-warm-ivory)', marginBottom: '1.25rem' }}>
-                Ready to build with engineering discipline?
+                Ready to build with{' '}
+                <span className="heading-accent heading-accent--champagne">engineering discipline</span>?
               </h2>
               <p style={{ color: 'var(--text-inverse-muted)', fontSize: '1.1rem', marginBottom: '2rem' }}>
                 Discuss your system requirements, technical challenges, or new product goals directly with our lead architects.

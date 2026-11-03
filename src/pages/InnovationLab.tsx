@@ -42,7 +42,8 @@ export const InnovationLab: React.FC = () => {
                 <Badge variant="terracotta">INTERNAL R&D BENCHMARKS</Badge>
               </div>
               <h1 className="heading-display" style={{ marginBottom: '1.25rem' }}>
-                Vision Cloud Innovation Lab: Testing Tomorrow's Software Foundations.
+                Vision Cloud Innovation Lab: Testing Tomorrow's Software{' '}
+                <span className="heading-accent heading-accent--terracotta">Foundations</span>.
               </h1>
               <p className="text-lead">
                 An internal engineering incubator where we stress-test emerging paradigms, validate latency limits, and build proof-of-concept prototypes before recommending them for mission-critical client deployments.
@@ -60,7 +61,8 @@ export const InnovationLab: React.FC = () => {
               <div>
                 <Badge variant="default" style={{ marginBottom: '1rem' }}>LAB MANIFESTO</Badge>
                 <h2 className="heading-lg" style={{ marginBottom: '1.25rem' }}>
-                  Pragmatic Engineering, Zero Hype.
+                  Pragmatic Engineering,{' '}
+                  <span className="heading-accent heading-accent--terracotta">Zero Hype</span>.
                 </h2>
                 <p style={{ lineHeight: '1.7', marginBottom: '1.25rem' }}>
                   The technology landscape is flooded with superficial buzzwords, vendor marketing, and unproven frameworks. The purpose of the Vision Cloud Innovation Lab is to cut through speculation by writing code, executing load benchmarks, and profiling resource consumption.

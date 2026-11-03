@@ -205,7 +205,7 @@ export const TeamMember: React.FC = () => {
                     ROLE SCOPE & TECHNICAL MANDATE
                   </Badge>
                   <h2 className="heading-lg" style={{ marginBottom: '1rem', color: 'var(--color-mocha)' }}>
-                    Architectural Mandate
+                    Architectural <span className="heading-accent heading-accent--terracotta">Mandate</span>
                   </h2>
                   <p style={{ fontSize: '1.05rem', lineHeight: '1.75', color: 'var(--text-secondary)' }}>
                     {member.roleOverview}

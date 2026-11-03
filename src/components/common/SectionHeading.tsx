@@ -34,7 +34,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
       <h2 className="heading-xl section-header__title">
         {title}{' '}
         {titleHighlight && (
-          <span className={inverse ? 'text-terracotta' : 'text-terracotta'}>
+          <span className={`heading-accent ${inverse ? 'heading-accent--champagne' : 'heading-accent--terracotta'}`}>
             {titleHighlight}
           </span>
         )}

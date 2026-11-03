@@ -173,7 +173,8 @@ export const Contact: React.FC = () => {
             <div style={{ maxWidth: '820px' }}>
               <Badge variant="terracotta" style={{ marginBottom: '1rem' }}>TECHNICAL COLLABORATION</Badge>
               <h1 className="heading-display" style={{ marginBottom: '1.25rem' }}>
-                Start an Engineering Conversation.
+                Start an Engineering{' '}
+                <span className="heading-accent heading-accent--terracotta">Conversation</span>.
               </h1>
               <p className="text-lead">
                 Every inquiry is reviewed directly by an experienced software engineering lead. We evaluate technical feasibility, provide honest architectural guidance, and scope realistic milestone roadmaps.

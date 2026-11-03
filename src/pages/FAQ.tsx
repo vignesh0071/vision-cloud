@@ -56,7 +56,8 @@ export const FAQ: React.FC = () => {
             <div style={{ maxWidth: '820px' }}>
               <Badge variant="terracotta" style={{ marginBottom: '1rem' }}>ANSWERS & TRANSPARENCY</Badge>
               <h1 className="heading-display" style={{ marginBottom: '1.25rem' }}>
-                Frequently Asked Questions.
+                Frequently Asked{' '}
+                <span className="heading-accent heading-accent--terracotta">Questions</span>.
               </h1>
               <p className="text-lead">
                 Transparent answers regarding our engineering methodology, technology stack selection, milestone pricing structures, project delivery timelines, and ongoing system maintenance.

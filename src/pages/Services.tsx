@@ -65,7 +65,8 @@ export const Services: React.FC = () => {
             <div style={{ maxWidth: '840px' }}>
               <Badge variant="terracotta" style={{ marginBottom: '1rem' }}>ENGINEERING DISCIPLINES</Badge>
               <h1 className="heading-display" style={{ marginBottom: '1.25rem' }}>
-                Purpose-Built Software Engineering for Scale and Speed.
+                Purpose-Built Software Engineering for{' '}
+                <span className="heading-accent heading-accent--terracotta">Scale and Speed</span>.
               </h1>
               <p className="text-lead">
                 We combine architectural rigor, modern toolchains, and human-centered design to engineer digital products that solve genuine operational challenges and deliver sustainable business value.
@@ -224,7 +225,8 @@ export const Services: React.FC = () => {
             <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto' }}>
               <Badge variant="inverse" style={{ marginBottom: '1rem' }}>BESPOKE SCOPE ASSESSMENTS</Badge>
               <h2 className="heading-xl" style={{ color: 'var(--color-warm-ivory)', marginBottom: '1.25rem' }}>
-                Need a multi-discipline software solution?
+                Need a multi-discipline{' '}
+                <span className="heading-accent heading-accent--champagne">software solution</span>?
               </h2>
               <p style={{ color: 'var(--text-inverse-muted)', fontSize: '1.05rem', marginBottom: '2rem' }}>
                 Many modern systems require cross-cutting capabilities—such as combining custom APIs, mobile applications, and AI pipelines. We tailor full-spectrum engineering scopes to your precise requirements.

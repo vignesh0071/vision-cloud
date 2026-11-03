@@ -40,7 +40,8 @@ export const Projects: React.FC = () => {
             <div style={{ maxWidth: '820px' }}>
               <Badge variant="terracotta" style={{ marginBottom: '1rem' }}>SELECTED WORK & CASE STUDIES</Badge>
               <h1 className="heading-display" style={{ marginBottom: '1.25rem' }}>
-                Engineering Systems Engineered for Demanding Workloads.
+                Engineering Systems Engineered for{' '}
+                <span className="heading-accent heading-accent--terracotta">Demanding Workloads</span>.
               </h1>
               <p className="text-lead">
                 A curated portfolio of software architectures, high-concurrency web interfaces, telemetry pipelines, and mobile applications. Every reference architecture illustrates our commitment to type safety, modular boundaries, and measurable performance.

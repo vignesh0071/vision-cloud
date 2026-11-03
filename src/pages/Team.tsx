@@ -37,7 +37,8 @@ export const Team: React.FC = () => {
                   textTransform: 'uppercase'
                 }}
               >
-                THE PEOPLE BEHIND THE ENGINEERING.
+                THE PEOPLE BEHIND THE{' '}
+                <span className="heading-accent heading-accent--terracotta">ENGINEERING</span>.
               </h1>
               <p className="text-lead" style={{ maxWidth: '780px' }}>
                 Meet the people shaping Vision Cloud's approach to software engineering, system
@@ -78,7 +79,8 @@ export const Team: React.FC = () => {
                   OUR LEADERSHIP PHILOSOPHY
                 </Badge>
                 <h2 className="heading-lg" style={{ marginBottom: '1.25rem' }}>
-                  Practicing Architects, Direct Accountability.
+                  Practicing Architects,{' '}
+                  <span className="heading-accent heading-accent--terracotta">Direct Accountability</span>.
                 </h2>
                 <p style={{ fontSize: '1.025rem', lineHeight: '1.7', marginBottom: '1.5rem' }}>
                   At Vision Cloud, engineering leaders do not sit behind layers of account executives. Our leadership architects remain actively hands-on—directly defining system blueprints, conducting code and design reviews, and verifying architectural decisions at every stage of delivery.
@@ -164,7 +166,8 @@ export const Team: React.FC = () => {
                 DIRECT TECHNICAL ENGAGEMENT
               </Badge>
               <h2 className="heading-xl" style={{ color: 'var(--color-warm-ivory)', marginBottom: '1.25rem' }}>
-                Collaborate directly with our engineering architects.
+                Collaborate directly with our{' '}
+                <span className="heading-accent heading-accent--champagne">engineering architects</span>.
               </h2>
               <p
                 style={{

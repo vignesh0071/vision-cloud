@@ -102,6 +102,28 @@ p {
   overflow-wrap: break-word;
 }
 
+/* Editorial Cursive & Serif Accents */
+.text-serif-accent,
+.font-accent,
+.heading-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.heading-accent--terracotta {
+  color: var(--color-terracotta);
+}
+
+.heading-accent--champagne {
+  color: var(--color-champagne);
+}
+
+.text-champagne {
+  color: var(--color-champagne);
+}
+
 .text-editorial-serif {
   font-family: var(--font-serif);
   font-style: italic;
@@ -118,6 +140,10 @@ p {
 
 .text-mocha {
   color: var(--color-mocha);
+}
+
+.text-secondary-dark {
+  color: var(--text-inverse-muted);
 }
 
 .mono-spec {

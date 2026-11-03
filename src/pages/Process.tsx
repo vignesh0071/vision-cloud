@@ -46,7 +46,8 @@ export const Process: React.FC = () => {
             <div style={{ maxWidth: '820px' }}>
               <Badge variant="terracotta" style={{ marginBottom: '1rem' }}>METHODOLOGY & LIFECYCLE</Badge>
               <h1 className="heading-display" style={{ marginBottom: '1.25rem' }}>
-                How We Move From Problem to Production.
+                How We Move From Problem to{' '}
+                <span className="heading-accent heading-accent--terracotta">Production</span>.
               </h1>
               <p className="text-lead">
                 Great software is not built on haphazard sprints or ambiguous goals. Our 8-stage engineering lifecycle establishes transparency, eliminates surprise regressions, and ensures every milestone meets rigorous production standards.
@@ -144,7 +145,8 @@ export const Process: React.FC = () => {
               <div style={{ maxWidth: '820px' }}>
                 <span className="badge badge--terracotta" style={{ marginBottom: '0.75rem' }}>MILESTONE CERTAINTY</span>
                 <h3 className="heading-lg" style={{ marginBottom: '1rem' }}>
-                  Our Commitment to Predictable Delivery
+                  Our Commitment to{' '}
+                  <span className="heading-accent heading-accent--terracotta">Predictable Delivery</span>
                 </h3>
                 <p style={{ fontSize: '1rem', lineHeight: '1.7', marginBottom: '1.25rem' }}>
                   We do not believe in unpredictable estimates or opaque sprint velocity meters. Every project scope is broken down into itemized work units with defined acceptance criteria. You never pay for a milestone until its staging preview has been reviewed and verified.

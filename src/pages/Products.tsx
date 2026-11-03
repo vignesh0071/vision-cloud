@@ -62,7 +62,8 @@ export const Products: React.FC = () => {
             <div style={{ maxWidth: '820px' }}>
               <Badge variant="terracotta" style={{ marginBottom: '1rem' }}>SYSTEMS & TOOLS</Badge>
               <h1 className="heading-display" style={{ marginBottom: '1.25rem' }}>
-                Internal Software Tooling & Product Blueprints.
+                Internal Software Tooling & Product{' '}
+                <span className="heading-accent heading-accent--terracotta">Blueprints</span>.
               </h1>
               <p className="text-lead">
                 Alongside custom client engineering, Vision Cloud architects reusable software systems, developer toolkits, and telemetry utilities. Each product below is transparently identified by its current production readiness.
@@ -201,7 +202,7 @@ export const Products: React.FC = () => {
               <div style={{ maxWidth: '800px' }}>
                 <span className="badge badge--terracotta" style={{ marginBottom: '0.75rem' }}>HONEST ENGINEERING DISCLOSURE</span>
                 <h3 className="heading-md" style={{ marginBottom: '1rem' }}>
-                  Our Approach to Product Development
+                  Our Approach to <span className="heading-accent heading-accent--terracotta">Product Development</span>
                 </h3>
                 <p style={{ fontSize: '0.975rem', lineHeight: '1.7', marginBottom: '1rem' }}>
                   Unlike marketing-driven firms that rebrand ordinary libraries as commercial suites, Vision Cloud maintains clear demarcations between tools ready for commercial deployment, systems currently undergoing internal hardening, and early experimental concept architectures.
