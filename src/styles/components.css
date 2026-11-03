@@ -176,26 +176,34 @@
   font-weight: 700;
   font-size: 1.15rem;
   letter-spacing: 0.02em;
+  text-decoration: none;
 }
 
 .site-brand__logo {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-sm);
-  background-color: var(--color-mocha);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-warm-ivory);
+  height: 34px;
+  width: auto;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
 }
 
-.site-header--cinema .site-brand__logo {
-  background-color: rgba(243, 238, 232, 0.1);
-  border: 1px solid var(--border-inverse-default);
+.site-brand:hover .site-brand__logo {
+  transform: scale(1.05);
+}
+
+.site-brand__logo-img {
+  height: 32px;
+  width: auto;
+  aspect-ratio: 879 / 457;
+  object-fit: contain;
+  display: block;
 }
 
 .site-brand__name {
   color: var(--color-mocha);
+  line-height: 1;
 }
 
 .site-header--cinema .site-brand__name {
@@ -204,6 +212,21 @@
 
 .site-brand__name span {
   color: var(--color-terracotta);
+}
+
+@media (max-width: 480px) {
+  .site-brand {
+    gap: 0.55rem;
+  }
+  .site-brand__logo {
+    height: 28px;
+  }
+  .site-brand__logo-img {
+    height: 26px;
+  }
+  .site-brand__name {
+    font-size: 1.05rem;
+  }
 }
 
 /* Nav Menu */

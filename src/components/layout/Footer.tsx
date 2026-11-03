@@ -49,11 +49,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal }) => {
           {/* Brand & Studio Model */}
           <div>
             <div className="site-brand" style={{ marginBottom: '1.25rem' }}>
-              <span className="site-brand__logo" aria-hidden="true" style={{ background: 'rgba(243, 238, 232, 0.12)' }}>
-                <svg viewBox="0 0 32 32" width="20" height="20" fill="none">
-                  <path d="M6 7 L16 26 L26 7 L20 7 L16 16 L12 7 Z" fill="#F3EEE8" />
-                  <circle cx="16" cy="23" r="2.2" fill="var(--color-terracotta)" />
-                </svg>
+              <span className="site-brand__logo" aria-hidden="true">
+                <img
+                  src="/images/logo-dark.png"
+                  alt="Vision Cloud Logo"
+                  className="site-brand__logo-img"
+                  width="62"
+                  height="32"
+                />
               </span>
               <span className="site-brand__name" style={{ color: 'var(--color-warm-ivory)' }}>
                 VISION <span style={{ color: 'var(--color-terracotta)' }}>CLOUD</span>

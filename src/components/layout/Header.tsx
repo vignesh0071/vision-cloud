@@ -86,13 +86,13 @@ export const Header: React.FC = () => {
           {/* Brand Logo & Name */}
           <Link to="/" className="site-brand" aria-label="Vision Cloud Home">
             <span className="site-brand__logo" aria-hidden="true">
-              <svg viewBox="0 0 32 32" width="20" height="20" fill="none">
-                <path
-                  d="M6 7 L16 26 L26 7 L20 7 L16 16 L12 7 Z"
-                  fill="currentColor"
-                />
-                <circle cx="16" cy="23" r="2.2" fill="var(--color-terracotta)" />
-              </svg>
+              <img
+                src={isCinemaMode ? '/images/logo-dark.png' : '/images/logo-light.png'}
+                alt="Vision Cloud Logo"
+                className="site-brand__logo-img"
+                width="62"
+                height="32"
+              />
             </span>
             <span className="site-brand__name">
               VISION <span>CLOUD</span>
@@ -242,13 +242,13 @@ export const Header: React.FC = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="site-brand__logo" aria-hidden="true">
-                <svg viewBox="0 0 32 32" width="18" height="18" fill="none">
-                  <path
-                    d="M6 7 L16 26 L26 7 L20 7 L16 16 L12 7 Z"
-                    fill="currentColor"
-                  />
-                  <circle cx="16" cy="23" r="2.2" fill="var(--color-terracotta)" />
-                </svg>
+                <img
+                  src="/images/logo-light.png"
+                  alt="Vision Cloud Logo"
+                  className="site-brand__logo-img"
+                  width="54"
+                  height="28"
+                />
               </span>
               <span className="site-brand__name">
                 VISION <span>CLOUD</span>
