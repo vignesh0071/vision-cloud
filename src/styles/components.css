@@ -695,75 +695,100 @@
   .hero-section {
     min-height: auto;
     display: block;
-    /* Account for mobile header height (64px) + 26px comfortable spacing */
-    padding-top: calc(var(--header-height) + 26px);
-    padding-bottom: 2.25rem;
+    /* Account for mobile header height (64px) + 34px comfortable spacing (28px to 36px spec) */
+    padding-top: calc(var(--header-height) + 34px);
+    padding-bottom: 2.75rem;
   }
 
   .hero-section__eyebrow {
-    margin-bottom: 18px; /* 16px to 20px */
+    margin-bottom: 20px; /* 16px to 20px spec */
   }
 
   .hero-section__title {
     font-size: clamp(1.68rem, 6vw + 0.2rem, 2.35rem);
-    line-height: 1.18; /* 1.15 to 1.2 */
+    line-height: 1.18; /* 1.15 to 1.2 spec */
     letter-spacing: -0.025em;
-    margin-bottom: 16px; /* 14px to 18px */
+    margin-bottom: 18px; /* 16px to 20px spec */
     text-wrap: balance;
   }
 
   .hero-section__description {
     font-size: 0.975rem;
-    line-height: 1.6; /* 1.6 comfortable line height */
-    margin-bottom: 24px; /* 24px to CTA buttons */
+    line-height: 1.58; /* 1.5 to 1.6 comfortable line height */
+    margin-bottom: 26px; /* 24px to 28px spec to primary CTA */
     max-width: 100%;
   }
 
   .hero-section__cta-group {
     flex-direction: column;
     width: 100%;
-    gap: 12px; /* 12px between stacked buttons */
-    margin-bottom: 32px; /* 28px to 36px before feature list */
+    gap: 13px; /* 12px to 14px between stacked buttons spec */
+    margin-bottom: 20px; /* 20px margin-bottom + 20px specs padding-top = 40px gap (36px to 44px spec) */
   }
 
   .hero-section__cta-group .btn {
     width: 100%;
-    min-height: 48px;
-    height: 50px;
-    padding: 0.75rem 1.25rem;
+    max-width: 100%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Primary CTA: approx 56px height, muted terracotta #B97862 */
+  .hero-section__cta-group .btn:first-child,
+  .hero-section__cta-group .btn--terracotta {
+    min-height: 56px;
+    height: 56px;
+    background-color: var(--color-terracotta);
+    color: var(--color-warm-ivory);
+    border-color: var(--color-terracotta);
+  }
+
+  /* Secondary CTA: approx 54px height, transparent with subtle light border */
+  .hero-section__cta-group .btn:nth-child(2),
+  .hero-section__cta-group .btn--outline-inverse {
+    min-height: 54px;
+    height: 54px;
+    background-color: transparent;
+    color: var(--color-warm-ivory);
+    border-color: rgba(243, 238, 232, 0.35);
   }
 
   .hero-specs-bar {
-    padding-top: 22px;
-    gap: 18px; /* 16px to 24px spacing between items */
     border-top: 1px solid var(--border-inverse-subtle);
+    padding-top: 20px; /* Total 40px separation from secondary button */
+    gap: 26px; /* 24px to 28px spacing between feature items spec */
   }
 
   .hero-spec-item__label {
-    font-size: 0.7rem;
-    margin-bottom: 0.25rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px; /* Avoid excessive vertical gap between label and description */
+    text-transform: uppercase;
   }
 
   .hero-spec-item__value {
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 0.925rem;
+    line-height: 1.42;
   }
 
   .hero-scroll-cue-wrapper {
-    margin-top: 22px;
-    padding-bottom: 0.25rem;
+    margin-top: 36px; /* Clear separation from the final feature item */
+    padding-bottom: 0.75rem;
   }
 }
 
 /* Extra small mobile screens (320px - 374px) */
 @media (max-width: 374px) {
   .hero-section {
-    padding-top: calc(var(--header-height) + 20px);
-    padding-bottom: 1.75rem;
+    /* Maintain at least 24px of comfortable spacing below mobile header */
+    padding-top: calc(var(--header-height) + 26px);
+    padding-bottom: 2rem;
   }
 
   .hero-section__eyebrow {
@@ -773,33 +798,41 @@
   .hero-section__title {
     font-size: clamp(1.48rem, 5.8vw, 1.75rem);
     line-height: 1.18;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
 
   .hero-section__description {
     font-size: 0.925rem;
     line-height: 1.55;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .hero-section__cta-group {
-    gap: 10px;
-    margin-bottom: 28px;
+    gap: 12px;
+    margin-bottom: 18px;
   }
 
-  .hero-section__cta-group .btn {
-    min-height: 46px;
-    height: 48px;
+  .hero-section__cta-group .btn:first-child,
+  .hero-section__cta-group .btn--terracotta {
+    min-height: 54px;
+    height: 54px;
+    font-size: 0.9rem;
+  }
+
+  .hero-section__cta-group .btn:nth-child(2),
+  .hero-section__cta-group .btn--outline-inverse {
+    min-height: 52px;
+    height: 52px;
     font-size: 0.9rem;
   }
 
   .hero-specs-bar {
     padding-top: 18px;
-    gap: 16px;
+    gap: 24px; /* 24px between items */
   }
 
   .hero-scroll-cue-wrapper {
-    margin-top: 18px;
+    margin-top: 30px;
   }
 }
 
