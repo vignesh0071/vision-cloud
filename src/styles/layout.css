@@ -1,0 +1,154 @@
+/* ==========================================================================
+   VISION CLOUD — ARCHITECTURAL LAYOUT & GRIDS
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.25rem, 4vw, 2.5rem);
+  padding-right: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.container--wide {
+  max-width: var(--container-wide);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
+}
+
+/* Section Padding */
+.section-pad {
+  padding-top: clamp(4.5rem, 8vw, 7.5rem);
+  padding-bottom: clamp(4.5rem, 8vw, 7.5rem);
+}
+
+.section-pad--compact {
+  padding-top: clamp(3rem, 5vw, 5rem);
+  padding-bottom: clamp(3rem, 5vw, 5rem);
+}
+
+.section-pad--spacious {
+  padding-top: clamp(6rem, 11vw, 10rem);
+  padding-bottom: clamp(6rem, 11vw, 10rem);
+}
+
+/* Background Section Themes */
+.bg-ivory {
+  background-color: var(--color-warm-ivory);
+}
+
+.bg-cream {
+  background-color: var(--color-soft-cream);
+}
+
+.bg-beige {
+  background-color: var(--color-subtle-beige);
+}
+
+.bg-cinema {
+  background-color: var(--color-mocha-cinema);
+  color: var(--text-inverse);
+}
+
+.bg-cinema p {
+  color: var(--text-inverse-muted);
+}
+
+.bg-cinema h1,
+.bg-cinema h2,
+.bg-cinema h3,
+.bg-cinema h4,
+.bg-cinema h5,
+.bg-cinema h6 {
+  color: var(--color-warm-ivory);
+}
+
+/* Split Editorial Layout */
+.split-editorial {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .split-editorial {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+
+  .split-editorial--reverse {
+    grid-template-columns: 0.95fr 1.05fr;
+  }
+  .split-editorial--reverse > :first-child {
+    order: 2;
+  }
+}
+
+/* Multi-Column Responsive Grids */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+@media (min-width: 768px) {
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+@media (min-width: 640px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Architectural Subtle Grid Overlay */
+.editorial-grid-bg {
+  background-image: 
+    linear-gradient(rgba(48, 39, 34, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(48, 39, 34, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: center center;
+}
+
+.editorial-grid-bg-cinema {
+  background-image: 
+    linear-gradient(rgba(243, 238, 232, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(243, 238, 232, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: center center;
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- Mocha Background -->
+  <rect width="48" height="48" rx="10" fill="#302722" />
+  <rect width="46" height="46" x="1" y="1" rx="9" fill="none" stroke="rgba(185, 120, 98, 0.3)" stroke-width="1" />
+  <!-- Subtle Terracotta Glow -->
+  <circle cx="24" cy="24" r="14" fill="#B97862" opacity="0.15" />
+  <!-- Architectural Geometric V Prism -->
+  <path d="M12 14 L24 36 L36 14 L29 14 L24 25 L19 14 Z" fill="url(#terracottaMochaGrad)" />
+  <path d="M16 14 L24 30 L32 14" fill="none" stroke="#F3EEE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="24" cy="30" r="2.2" fill="#B97862" />
+  <defs>
+    <linearGradient id="terracottaMochaGrad" x1="12" y1="14" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F3EEE8" />
+      <stop offset="50%" stop-color="#B97862" />
+      <stop offset="100%" stop-color="#8C5441" />
+    </linearGradient>
+  </defs>
+</svg>
