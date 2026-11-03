@@ -2,95 +2,101 @@ import type { ProjectItem } from '../types';
 
 export const projectsData: ProjectItem[] = [
   {
-    id: 'nexus-portal',
-    title: 'Nexus Enterprise Command Portal',
-    category: 'Enterprise Web',
-    shortDescription: 'A unified operational dashboard managing real-time data feeds, role-based resource permissions, and automated compliance auditing.',
-    fullDescription: 'Nexus was engineered as a reference architecture demonstrating high-concurrency enterprise web systems. The system solves the friction of managing cross-departmental access credentials, live status telemetries, and mission-critical action approvals through a single verified interface.',
+    id: 'eshaka-cabs',
+    title: 'Eshaka Cabs',
+    category: 'Web Applications',
+    shortDescription: 'A travel and cab booking website for Thoothukudi & Tuticorin, featuring one-way and round-trip booking, fleet selection, and direct booking confirmation.',
+    fullDescription: 'Eshaka Cabs is a dedicated regional cab service website built for customers traveling across Thoothukudi, Tirunelveli, Madurai, Chennai, and broader Tamil Nadu. The platform presents the company fleet with clear vehicle categories (including Mahindra Xylo and Hyundai Xcent), offers interactive trip scheduling with pickup/drop locations and passenger counts, and enables streamlined booking inquiries via direct phone and WhatsApp integrations.',
     objectives: [
-      'Provide instant, flicker-free state updates across high-frequency tabular datasets',
-      'Enforce granular role-based access control (RBAC) at the edge boundary',
-      'Maintain an immutable audit trail of all operational adjustments'
+      'Deliver a responsive, mobile-optimized cab booking interface with fast load times across 3G/4G networks',
+      'Enable customers to select one-way, round-trip, outstation, and airport pickup journeys with exact dates and passenger counts',
+      'Streamline customer inquiries directly into dispatch channels via instant WhatsApp pre-filled messaging and click-to-call'
     ],
-    engineeringApproach: 'Designed with optimistic UI mutations backed by automated rollback reconciliation. Built around a virtualized DOM table engine capable of rendering 100,000+ records at 60fps, paired with WebSockets for sub-100ms telemetry broadcasts.',
-    technologies: ['React 19', 'TypeScript', 'Tailwind CSS', 'WebSockets', 'PostgreSQL', 'Docker'],
+    engineeringApproach: 'Built with clean semantic HTML5, modern CSS, and JavaScript with Bootstrap responsive grid scaffolding. Designed with an inviting travel-yellow and crisp white visual identity that ensures legibility on mobile devices under direct sunlight.',
+    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap', 'WhatsApp Click-to-Chat', 'Mobile Responsive'],
     architectureHighlights: [
-      'Virtualised data grid maintaining constant 60fps scrolling with 100k+ rows',
-      'Granular ABAC & RBAC security policies verified on edge proxies',
-      'Optimistic state updates with cryptographic rollback checks',
-      'Automated dark/light theme tokens conforming to WCAG 2.1 AA'
+      'Clean, mobile-first responsive booking workflow for local and outstation travel',
+      'Structured trip reservation form capturing pickup, destination, dates, and vehicle selection',
+      'Direct WhatsApp business dispatch bridge eliminating drop-off friction',
+      'Optimized asset delivery ensuring high performance on mobile networks'
     ],
-    isConcept: true,
-    imageSrc: '/images/service-web.webp',
-    visualType: 'grid'
+    status: 'Completed',
+    liveUrl: 'https://www.eshakacabs.in/',
+    imageSrc: '/images/projects/eshaka-cabs.jpg',
+    visualType: 'grid',
+    isConcept: false
   },
   {
-    id: 'apex-telemetry',
-    title: 'Apex Metric Streaming Engine',
-    category: 'Cloud & Systems',
-    shortDescription: 'High-frequency telemetry ingestion visualization interface rendering real-time system performance counters and incident signals.',
-    fullDescription: 'Apex illustrates a high-performance streaming architecture built to ingest, aggregate, and visualize high-frequency time-series telemetry without browser main-thread blocking or memory leaks.',
+    id: 'spl-courier',
+    title: 'SPL Courier',
+    category: 'Web Applications',
+    shortDescription: 'A commercial courier and logistics service website for SPL Worldwide Express in Thoothukudi, presenting domestic, international, and air cargo delivery services.',
+    fullDescription: 'SPL Courier (SPL Worldwide Express) is a professional commercial logistics website engineered to represent the carrier\'s domestic and international shipping operations based in Thoothukudi. The platform provides clear visibility into available freight and express courier capabilities—including document shipping, parcel transit, and international air cargo—along with structured online service inquiry forms, contact coordination, and branch locations.',
     objectives: [
-      'Ingest up to 50,000 telemetry datapoints per second from microservice clusters',
-      'Render responsive multi-axis graphs smoothly without canvas stutter',
-      'Dispatch threshold alerts without requiring polling'
+      'Present comprehensive domestic and international logistics services with clear category breakdowns',
+      'Provide an accessible shipment inquiry and rate estimation request form for business and retail clients',
+      'Establish a strong, credible digital presence for regional and overseas cargo transit operations'
     ],
-    engineeringApproach: 'Constructed using a hybrid Canvas/SVG pipeline where high-density historical records are plotted on offscreen hardware-accelerated canvas contexts while interactive inspection overlays remain accessible SVG nodes.',
-    technologies: ['TypeScript', 'Canvas API', 'Node.js', 'Redis Streams', 'Docker', 'Prometheus'],
+    engineeringApproach: 'Developed as a responsive multi-page web platform utilizing modern layout standards, accessible form validation, and optimized imagery. Focused on fast load speeds, clear typography, and verified contact points without unverified claims or simulated tracking integrations.',
+    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Grid', 'Form Validation', 'SEO Architecture'],
     architectureHighlights: [
-      'Hybrid Canvas/SVG rendering pipeline eliminating DOM thrashing',
-      'Microsecond timestamp indexing for rapid historical time-range queries',
-      'Configurable alert threshold dispatching with minimal CPU footprint',
-      'Dockerized single-command local development environment'
+      'Structured service catalog spanning domestic courier, express documents, and international air cargo',
+      'Interactive shipment inquiry interface with route and parcel detail capture',
+      'Direct coordination channels connecting shippers to dispatch desks in Thoothukudi',
+      'Responsive multi-device layout compliant with modern web accessibility guidelines'
     ],
-    isConcept: true,
-    imageSrc: '/images/service-software.webp',
-    visualType: 'analytics'
+    status: 'Completed',
+    liveUrl: 'https://splexpress.in/',
+    imageSrc: '/images/projects/spl-courier.jpg',
+    visualType: 'network',
+    isConcept: false
   },
   {
-    id: 'aegis-auth',
-    title: 'Aegis Zero-Trust Identity Gateway',
-    category: 'Security Architecture',
-    shortDescription: 'Centralized authentication and token issuance gateway supporting WebAuthn hardware keys, TOTP, and delegated OAuth2 sessions.',
-    fullDescription: 'A modular security blueprint illustrating modern zero-trust authentication workflows. Engineered with cryptographic verification, distributed IP rate limiting, and structured audit logs for rigorous compliance monitoring.',
-    objectives: [
-      'Replace vulnerable password-only authentication with hardware-backed passkeys',
-      'Provide stateless, cryptographically signed token issuance',
-      'Mitigate credential stuffing and brute-force attacks at the API perimeter'
-    ],
-    engineeringApproach: 'Implemented with FIDO2/WebAuthn standards for biometric and security key verification. Session validation utilizes short-lived Ed25519-signed JWTs backed by Redis token revocation lists for instant session invalidation.',
-    technologies: ['TypeScript', 'Go Core', 'WebAuthn', 'Redis', 'PostgreSQL', 'OpenID Connect'],
-    architectureHighlights: [
-      'Hardware-backed WebAuthn biometric passkey authentication',
-      'Ed25519 cryptographically signed ephemeral session tokens',
-      'Distributed token bucket rate-limiting and threat intelligence filtering',
-      'Comprehensive audit event stream formatted in CloudEvents schema'
-    ],
-    isConcept: true,
-    imageSrc: '/images/vision-about-01.webp',
-    visualType: 'cube'
-  },
-  {
-    id: 'omniflow-mobile',
-    title: 'OmniFlow Logistics Companion',
+    id: 'vynex-messenger',
+    title: 'Vynex Messenger',
     category: 'Mobile Solutions',
-    shortDescription: 'A lightweight mobile workflow assistant for inventory audits, barcode scanning, and bidirectional offline reconciliation.',
-    fullDescription: 'OmniFlow serves as an architectural blueprint for industrial mobile applications where connectivity cannot be guaranteed. Field workers can conduct audits, track inventory transfers, and inspect assets completely offline.',
+    shortDescription: 'A private, customized messaging application currently in active development, engineered with Firebase Authentication, real-time message sync, and user profile management.',
+    fullDescription: 'Vynex Messenger is an independent, private messaging application engineered for streamlined personal communication. Currently in active development, the initial implementation focuses on reliable mobile-number verification via Firebase Phone Authentication, Cloud Firestore real-time message synchronization, conversation thread storage, and user profile management. The application features a custom dark-mode interface built for smooth mobile interactions.',
     objectives: [
-      'Guarantee 100% operational capability in zero-connectivity environments',
-      'Achieve sub-50ms barcode recognition using native mobile camera pipelines',
-      'Resolve multi-device inventory count conflicts automatically upon reconnection'
+      'Implement secure, passwordless authentication using mobile-number SMS verification via Firebase Auth',
+      'Provide low-latency real-time 1-on-1 text messaging using Cloud Firestore event listeners',
+      'Store conversation history and deliver instantaneous synchronization across authenticated user devices'
     ],
-    engineeringApproach: 'Built with React Native and an embedded SQLite local store. State synchronizations leverage conflict-free replicated data structures (CRDTs), ensuring parallel offline updates merge deterministically without data loss.',
-    technologies: ['React Native', 'Expo', 'TypeScript', 'SQLite Offline', 'GraphQL', 'iOS/Android'],
+    engineeringApproach: 'Architected with React Native and TypeScript, backed by Google Firebase serverless cloud services. State management leverages reactive listeners for instant message propagation, with offline local persistence for conversation caching.',
+    technologies: ['React Native', 'TypeScript', 'Firebase Auth (Phone/OTP)', 'Cloud Firestore', 'Firebase Storage'],
     architectureHighlights: [
-      'Two-way conflict-free replicated data types (CRDT) for offline reconciliation',
-      'Sub-50ms barcode recognition via native camera bindings',
-      'Adaptive high-contrast interface designed for harsh outdoor glare conditions',
-      'Minimal background battery consumption through optimized sensor polling'
+      'Mobile phone number verification workflow with one-time verification tokens',
+      'Real-time Firestore conversation stream with sub-second message dispatch',
+      'Custom dark-mode UI with polished typography and message status indicators',
+      'Active development scope: Core messaging and profiles verified; media attachments in progress'
     ],
-    isConcept: true,
-    imageSrc: '/images/service-mobile.webp',
-    visualType: 'network'
+    status: 'In Development',
+    imageSrc: '/images/projects/vynex-messenger.jpg',
+    visualType: 'cube',
+    isConcept: false
+  },
+  {
+    id: 'vision-cloud-server',
+    title: 'Vision Cloud Server',
+    category: 'Cloud & Infrastructure',
+    shortDescription: 'An ongoing infrastructure and deployment initiative establishing dedicated Linux hosting, reverse proxy routing, containerized runtimes, and deployment automation.',
+    fullDescription: 'Vision Cloud Server is our internal engineering infrastructure and deployment initiative currently underway. Rather than claiming a finished commercial cloud platform, this initiative encompasses our hands-on infrastructure work: configuring dedicated Ubuntu Linux hosts, implementing edge reverse proxies with automated TLS certificate renewals, orchestrating microservices via Docker, and building reliable staging-to-production deployment scripts.',
+    objectives: [
+      'Harden dedicated Linux host environments with systemd supervision and automated security updates',
+      'Establish reverse proxy routing with zero-downtime reload and automated Let\'s Encrypt SSL/TLS certificates',
+      'Build standardized Docker container deployment pipelines with health verification checks'
+    ],
+    engineeringApproach: 'Configured on Ubuntu Server LTS with strict firewall isolation (UFW), container isolation via Docker Compose, and Nginx edge routing. Build processes are validated via automated bash verification scripts that verify port binding, process health, and SSL handshake prior to routing traffic.',
+    technologies: ['Ubuntu Server LTS', 'Docker & Compose', 'Nginx Reverse Proxy', 'Bash Shell Scripts', 'Systemd', 'SSL/TLS (Let\'s Encrypt)'],
+    architectureHighlights: [
+      'Hardened Linux server configuration with dedicated service users and process isolation',
+      'Automated container lifecycle management and reverse proxy routing',
+      'Four-stage deployment pipeline: Source validation, compilation, container release, and health check',
+      'Active development scope: Core host setup and reverse proxy live; deployment automation undergoing testing'
+    ],
+    status: 'Deployment in Progress',
+    imageSrc: '/images/projects/vision-cloud-server.jpg',
+    visualType: 'analytics',
+    isConcept: false
   }
 ];

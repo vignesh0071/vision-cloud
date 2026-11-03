@@ -28,10 +28,11 @@ export interface ProductItem {
 
 export type ProjectCategory = 
   | 'All' 
-  | 'Enterprise Web' 
-  | 'Cloud & Systems' 
-  | 'Security Architecture' 
-  | 'Mobile Solutions';
+  | 'Web Applications' 
+  | 'Mobile Solutions' 
+  | 'Cloud & Infrastructure';
+
+export type ProjectStatusType = 'Completed' | 'In Development' | 'Deployment in Progress';
 
 export interface ProjectItem {
   id: string;
@@ -43,9 +44,11 @@ export interface ProjectItem {
   engineeringApproach: string;
   technologies: string[];
   architectureHighlights: string[];
-  isConcept: boolean;
-  imageSrc?: string;
-  visualType: 'grid' | 'analytics' | 'cube' | 'network';
+  status: ProjectStatusType;
+  liveUrl?: string;
+  imageSrc: string;
+  visualType?: 'grid' | 'analytics' | 'cube' | 'network' | 'server';
+  isConcept?: boolean;
 }
 
 export interface ProcessStage {

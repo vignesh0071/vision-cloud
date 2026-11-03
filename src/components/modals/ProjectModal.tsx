@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { X, CheckCircle2, ArrowRight } from 'lucide-react';
+import { X, CheckCircle2, ArrowRight, ExternalLink } from 'lucide-react';
 import type { ProjectItem } from '../../types';
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
+import { DeploymentStatusPanel } from '../projects/DeploymentStatusPanel';
 
 interface ProjectModalProps {
   project: ProjectItem | null;
@@ -37,15 +38,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
       <div
         className="modal-content"
         onClick={(e) => e.stopPropagation()}
-        style={{ maxWidth: '780px' }}
+        style={{ maxWidth: '820px' }}
       >
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
           <div>
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
               <Badge variant="terracotta">{project.category}</Badge>
-              {project.isConcept && (
-                <Badge variant="default">Concept Architecture</Badge>
-              )}
+              <Badge variant={project.status === 'Completed' ? 'default' : 'inverse'}>
+                {project.status}
+              </Badge>
             </div>
             <h2 id="modal-project-title" className="heading-lg">
               {project.title}
@@ -75,12 +76,32 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
         </div>
 
         {project.imageSrc && (
-          <div style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', marginBottom: '1.5rem', maxHeight: '300px' }}>
-            <img
-              src={project.imageSrc}
-              alt={project.title}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
+          <div style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', marginBottom: '1.5rem', maxHeight: '320px', position: 'relative' }}>
+            {project.liveUrl ? (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-card__image-link"
+                title={`Visit ${project.title} live website`}
+              >
+                <img
+                  src={project.imageSrc}
+                  alt={project.title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                <span className="project-card__overlay-pill">
+                  <span>Visit Live Website</span>
+                  <ExternalLink size={12} />
+                </span>
+              </a>
+            ) : (
+              <img
+                src={project.imageSrc}
+                alt={project.title}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            )}
           </div>
         )}
 
@@ -92,6 +113,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
             {project.fullDescription}
           </p>
         </div>
+
+        {/* Embedded Deployment Status Panel for Vision Cloud Server */}
+        {project.id === 'vision-cloud-server' && (
+          <div style={{ marginBottom: '1.75rem' }}>
+            <h4 style={{ fontSize: '0.85rem', fontFamily: 'var(--font-mono)', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-terracotta)', marginBottom: '0.65rem' }}>
+              Deployment Workflow Cadence
+            </h4>
+            <DeploymentStatusPanel isCompact />
+          </div>
+        )}
 
         <div style={{ marginBottom: '1.75rem' }}>
           <h4 style={{ fontSize: '0.85rem', fontFamily: 'var(--font-mono)', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-terracotta)', marginBottom: '0.5rem' }}>
@@ -146,12 +177,26 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', paddingTop: '1.25rem', borderTop: '1px solid var(--border-subtle)' }}>
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', flexWrap: 'wrap', paddingTop: '1.25rem', borderTop: '1px solid var(--border-subtle)' }}>
           <Button variant="outline" size="sm" onClick={onClose}>
             Close
           </Button>
+
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--terracotta btn--sm"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+            >
+              <span>Visit Live Website</span>
+              <ExternalLink size={14} />
+            </a>
+          )}
+
           <Button
-            variant="terracotta"
+            variant={project.liveUrl ? 'outline' : 'terracotta'}
             size="sm"
             onClick={() => {
               onClose();
@@ -159,7 +204,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
             }}
             icon={<ArrowRight size={14} />}
           >
-            Inquire About Similar Architecture
+            Inquire About This Architecture
           </Button>
         </div>
       </div>

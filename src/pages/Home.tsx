@@ -16,7 +16,8 @@ import {
   ShieldCheck,
   Zap,
   MessageSquare,
-  Sparkles
+  Sparkles,
+  ExternalLink
 } from 'lucide-react';
 import { CinematicVideoBackground } from '../components/media/CinematicVideoBackground';
 import { Container } from '../components/common/Container';
@@ -298,49 +299,116 @@ export const Home: React.FC = () => {
               <div>
                 <Badge variant="terracotta" style={{ marginBottom: '0.75rem' }}>WORK SHOWCASE</Badge>
                 <h2 className="heading-xl">
-                  Architectural <span className="heading-accent heading-accent--terracotta">Case Studies</span> & Systems.
+                  Verified <span className="heading-accent heading-accent--terracotta">Projects & Initiatives</span>.
                 </h2>
               </div>
               <Button to="/projects" variant="outline" icon={<ArrowRight size={14} />}>
-                View All Projects
+                View All Projects & Architecture
               </Button>
             </div>
           </Reveal>
 
-          <div className="grid-2">
-            {projectsData.slice(0, 2).map((project, idx) => (
-              <Reveal key={project.id} delayMs={idx * 100}>
+          <div className="grid-2" style={{ gap: '2.5rem' }}>
+            {projectsData.map((project, idx) => (
+              <Reveal key={project.id} delayMs={idx * 80}>
                 <div
                   className="editorial-card"
                   style={{
                     padding: 0,
                     overflow: 'hidden',
                     display: 'flex',
-                    flexDirection: 'column'
+                    flexDirection: 'column',
+                    height: '100%'
                   }}
                 >
                   <div style={{ height: '260px', overflow: 'hidden', position: 'relative' }}>
-                    <img
-                      src={project.imageSrc}
-                      alt={project.title}
-                      loading="lazy"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                    <div style={{ position: 'absolute', top: '1rem', left: '1rem' }}>
-                      <Badge variant="inverse">{project.category}</Badge>
-                    </div>
-                    {project.isConcept && (
-                      <div style={{ position: 'absolute', top: '1rem', right: '1rem' }}>
-                        <span style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', padding: '0.25rem 0.6rem', backgroundColor: 'rgba(30, 24, 21, 0.85)', color: 'var(--color-warm-ivory)', borderRadius: 'var(--radius-xs)', border: '1px solid var(--border-inverse-subtle)' }}>
-                          Concept Architecture
+                    {project.liveUrl ? (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-card__image-link"
+                        aria-label={`Visit ${project.title} live website at ${project.liveUrl}`}
+                      >
+                        <img
+                          src={project.imageSrc}
+                          alt={project.title}
+                          loading="lazy"
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                        <span className="project-card__overlay-pill">
+                          <span>Visit Live Website</span>
+                          <ExternalLink size={12} />
+                        </span>
+                      </a>
+                    ) : (
+                      <div
+                        onClick={() => setActiveProjectModal(project)}
+                        className="project-card__image-link"
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`View architecture details for ${project.title}`}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setActiveProjectModal(project);
+                          }
+                        }}
+                      >
+                        <img
+                          src={project.imageSrc}
+                          alt={project.title}
+                          loading="lazy"
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                        <span className="project-card__overlay-pill">
+                          <span>View Specifications</span>
+                          <ArrowUpRight size={12} />
                         </span>
                       </div>
                     )}
+
+                    <div style={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 2, pointerEvents: 'none' }}>
+                      <span
+                        style={{
+                          fontSize: '0.7rem',
+                          fontFamily: 'var(--font-mono)',
+                          padding: '0.25rem 0.65rem',
+                          backgroundColor: 'rgba(30, 24, 21, 0.92)',
+                          color: 'var(--color-warm-ivory)',
+                          borderRadius: 'var(--radius-xs)',
+                          border: '1px solid rgba(243, 238, 232, 0.18)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.4rem',
+                          backdropFilter: 'blur(4px)'
+                        }}
+                      >
+                        <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-terracotta-soft)' }} />
+                        <span>{project.category}</span>
+                      </span>
+                    </div>
+
+                    <div style={{ position: 'absolute', top: '1rem', right: '1rem', zIndex: 2, pointerEvents: 'none' }}>
+                      <span
+                        style={{
+                          fontSize: '0.7rem',
+                          fontFamily: 'var(--font-mono)',
+                          padding: '0.25rem 0.6rem',
+                          backgroundColor: project.status === 'Completed' ? 'rgba(30, 24, 21, 0.9)' : 'rgba(185, 120, 98, 0.92)',
+                          color: 'var(--color-warm-ivory)',
+                          borderRadius: 'var(--radius-xs)',
+                          border: '1px solid var(--border-inverse-subtle)'
+                        }}
+                      >
+                        {project.status}
+                      </span>
+                    </div>
                   </div>
 
                   <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
-                      <h3 className="heading-md" style={{ marginBottom: '0.75rem' }}>
+                      <h3 className="heading-md" style={{ marginBottom: '0.75rem', color: 'var(--color-mocha)' }}>
                         {project.title}
                       </h3>
                       <p style={{ fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
@@ -367,15 +435,29 @@ export const Home: React.FC = () => {
                         ))}
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => setActiveProjectModal(project)}
-                        className="btn btn--outline btn--sm"
-                        style={{ width: '100%' }}
-                      >
-                        <span>View Architecture Specifications</span>
-                        <ArrowUpRight size={14} />
-                      </button>
+                      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn--terracotta btn--sm"
+                            style={{ flex: 1, minWidth: '140px', justifyContent: 'center' }}
+                          >
+                            <span>Visit Live Site</span>
+                            <ExternalLink size={13} />
+                          </a>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => setActiveProjectModal(project)}
+                          className="btn btn--outline btn--sm"
+                          style={{ flex: 1, minWidth: '140px', justifyContent: 'center' }}
+                        >
+                          <span>Blueprint & Specs</span>
+                          <ArrowUpRight size={13} />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
