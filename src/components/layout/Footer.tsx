@@ -82,10 +82,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal }) => {
             </ul>
           </div>
 
-          {/* Column 2: Solutions & Lab */}
+          {/* Column 2: Solutions & Team */}
           <div>
-            <h4>Solutions</h4>
+            <h4>Solutions & Team</h4>
             <ul className="footer-links-list">
+              <li><Link to="/team">Leadership & Architects</Link></li>
               <li><Link to="/products">Product Portfolio</Link></li>
               <li><Link to="/projects">Case Studies & Architecture</Link></li>
               <li><Link to="/process">8-Stage Engineering Cadence</Link></li>

@@ -866,3 +866,50 @@
   position: relative;
   box-shadow: var(--shadow-lg);
 }
+
+/* ---------- TEAM & LEADERSHIP STYLES ---------- */
+.team-card {
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-terracotta) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.team-card:hover .team-card__link {
+  color: var(--color-terracotta) !important;
+}
+
+.team-card:hover .team-card__link svg {
+  transform: translate(3px, -3px) !important;
+}
+
+.profile-avatar {
+  transition: transform var(--transition-base);
+}
+
+.team-card:hover .profile-avatar {
+  transform: scale(1.03);
+}
+
+/* Team Grid Breakpoints */
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .team-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+

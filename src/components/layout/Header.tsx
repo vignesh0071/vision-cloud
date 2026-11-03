@@ -55,6 +55,7 @@ export const Header: React.FC = () => {
   const navLinks = [
     { title: 'Home', path: '/' },
     { title: 'About', path: '/about' },
+    { title: 'Team', path: '/team' },
     { title: 'Products', path: '/products' },
     { title: 'Projects', path: '/projects' },
     { title: 'Process', path: '/process' },
@@ -100,6 +101,13 @@ export const Header: React.FC = () => {
               className={`nav-link ${location.pathname === '/about' ? 'is-active' : ''}`}
             >
               About
+            </Link>
+
+            <Link
+              to="/team"
+              className={`nav-link ${location.pathname.startsWith('/team') ? 'is-active' : ''}`}
+            >
+              Team
             </Link>
 
             {/* Services with Dropdown */}

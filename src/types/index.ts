@@ -77,6 +77,20 @@ export interface FAQItem {
   answer: string;
 }
 
+export interface TeamMember {
+  id: string;
+  slug: string;
+  name: string;
+  role: string;
+  focus: string;
+  referenceId: string;
+  initials: string;
+  photoUrl?: string;
+  roleOverview: string;
+  responsibilities: string[];
+  disciplines: string[];
+}
+
 export interface ContactFormData {
   name: string;
   email: string;

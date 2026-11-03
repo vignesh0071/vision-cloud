@@ -15,6 +15,8 @@ import { LegalModal } from './components/modals/LegalModal';
 // Pages
 import { Home } from './pages/Home';
 import { About } from './pages/About';
+import { Team } from './pages/Team';
+import { TeamMember } from './pages/TeamMember';
 import { Services } from './pages/Services';
 import { Products } from './pages/Products';
 import { Projects } from './pages/Projects';
@@ -58,6 +60,8 @@ export function AppContent() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/team/:slug" element={<TeamMember />} />
           <Route path="/services" element={<Services />} />
           <Route path="/products" element={<Products />} />
           <Route path="/projects" element={<Projects />} />
