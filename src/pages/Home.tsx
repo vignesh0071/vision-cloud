@@ -54,7 +54,7 @@ export const Home: React.FC = () => {
 
   const handleScrollToNext = (e: React.MouseEvent) => {
     e.preventDefault();
-    const target = document.getElementById('section-intro');
+    const target = document.getElementById('section-features') || document.getElementById('section-intro');
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
     }
@@ -108,29 +108,12 @@ export const Home: React.FC = () => {
                   </div>
                 </Reveal>
 
-                <Reveal delayMs={500}>
-                  <div className="hero-specs-bar">
-                    <div className="hero-spec-item">
-                      <span className="hero-spec-item__label">FOUNDATION</span>
-                      <span className="hero-spec-item__value">Production-Grade Architecture</span>
-                    </div>
-                    <div className="hero-spec-item">
-                      <span className="hero-spec-item__label">DISCIPLINE</span>
-                      <span className="hero-spec-item__value">Type-Safe & Scalable Systems</span>
-                    </div>
-                    <div className="hero-spec-item">
-                      <span className="hero-spec-item__label">DELIVERY</span>
-                      <span className="hero-spec-item__value">Dependable Milestone Cadence</span>
-                    </div>
-                  </div>
-                </Reveal>
-
                 <div className="hero-scroll-cue-wrapper">
                   <a
-                    href="#section-intro"
+                    href="#section-features"
                     onClick={handleScrollToNext}
                     className="hero-scroll-cue"
-                    aria-label="Scroll to introduction"
+                    aria-label="Scroll to core engineering capabilities"
                   >
                     <span>DISCOVER VISION CLOUD</span>
                     <ArrowDown size={14} />
@@ -140,6 +123,28 @@ export const Home: React.FC = () => {
             </Container>
           </div>
         </CinematicVideoBackground>
+      </section>
+
+      {/* SECTION B: CORE ENGINEERING PILLARS (DISTINCT FEATURE STRIP SECTION) */}
+      <section id="section-features" className="features-specs-section" aria-label="Core Engineering Pillars">
+        <Container>
+          <Reveal delayMs={100}>
+            <div className="hero-specs-bar">
+              <div className="hero-spec-item">
+                <span className="hero-spec-item__label">FOUNDATION</span>
+                <span className="hero-spec-item__value">Production-Grade Architecture</span>
+              </div>
+              <div className="hero-spec-item">
+                <span className="hero-spec-item__label">DISCIPLINE</span>
+                <span className="hero-spec-item__value">Type-Safe & Scalable Systems</span>
+              </div>
+              <div className="hero-spec-item">
+                <span className="hero-spec-item__label">DELIVERY</span>
+                <span className="hero-spec-item__value">Dependable Milestone Cadence</span>
+              </div>
+            </div>
+          </Reveal>
+        </Container>
       </section>
 
       {/* SECTION B: INTRODUCTION (REFINED SPLIT EDITORIAL) */}

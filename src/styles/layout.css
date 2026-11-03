@@ -2,6 +2,30 @@
    VISION CLOUD — ARCHITECTURAL LAYOUT & GRIDS
    ========================================================================== */
 
+.vision-cloud-application {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: var(--color-mocha);
+}
+
+main#main-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-home {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
   width: 100%;
   max-width: var(--container-max);

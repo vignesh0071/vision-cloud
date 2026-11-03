@@ -34,6 +34,13 @@ export const Reveal: React.FC<RevealProps> = ({
       return;
     }
 
+    // Immediate check if element is already near or inside the viewport
+    const rect = currentElem.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 150) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -41,12 +48,21 @@ export const Reveal: React.FC<RevealProps> = ({
           observer.unobserve(entry.target);
         }
       },
-      { threshold }
+      {
+        threshold: Math.min(threshold, 0.05),
+        rootMargin: '120px 0px 120px 0px'
+      }
     );
 
     observer.observe(currentElem);
 
+    // Failsafe timer: Ensure content is never left permanently hidden
+    const failsafe = setTimeout(() => {
+      setIsVisible(true);
+    }, 1800);
+
     return () => {
+      clearTimeout(failsafe);
       observer.disconnect();
     };
   }, [prefersReducedMotion, threshold]);
