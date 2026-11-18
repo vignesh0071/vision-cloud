@@ -7,6 +7,7 @@ import { Breadcrumbs } from '../components/layout/Breadcrumbs';
 import { Reveal } from '../components/animation/Reveal';
 import { faqData } from '../data/faq';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { getGeneralWhatsAppUrl } from '../config/contact';
 
 export const FAQ: React.FC = () => {
   useDocumentTitle(
@@ -215,12 +216,14 @@ export const FAQ: React.FC = () => {
                 Submit an Inquiry
               </Button>
               <a
-                href="https://wa.me/919345688752?text=Hello%20Vision%20Cloud%20team%2C%20I%20have%20a%20technical%20question%20about%20your%20services."
+                href={getGeneralWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn--outline btn--sm"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
               >
-                Chat on WhatsApp
+                <MessageSquare size={13} />
+                <span>Chat on WhatsApp</span>
               </a>
             </div>
           </div>

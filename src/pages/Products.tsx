@@ -3,7 +3,9 @@ import {
   CheckCircle2,
   ArrowRight,
   Clock,
-  Compass
+  Compass,
+  MessageSquare,
+  Mail
 } from 'lucide-react';
 import { Container } from '../components/common/Container';
 import { Badge } from '../components/common/Badge';
@@ -13,6 +15,7 @@ import { Reveal } from '../components/animation/Reveal';
 import { productsData } from '../data/products';
 import type { ProductStatus } from '../types';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { getProductWhatsAppUrl, getProductEmailUrl } from '../config/contact';
 
 export const Products: React.FC = () => {
   useDocumentTitle(
@@ -179,6 +182,29 @@ export const Products: React.FC = () => {
                     >
                       {prod.linkText || 'Inquire About Product Integration'}
                     </Button>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginTop: '0.65rem' }}>
+                      <a
+                        href={getProductWhatsAppUrl(prod.name)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn--outline btn--sm"
+                        style={{ justifyContent: 'center' }}
+                        aria-label={`Enquire about ${prod.name} on WhatsApp`}
+                      >
+                        <MessageSquare size={13} />
+                        <span>WhatsApp</span>
+                      </a>
+                      <a
+                        href={getProductEmailUrl(prod.name)}
+                        className="btn btn--outline btn--sm"
+                        style={{ justifyContent: 'center' }}
+                        aria-label={`Enquire about ${prod.name} via Email`}
+                      >
+                        <Mail size={13} />
+                        <span>Email</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </Reveal>

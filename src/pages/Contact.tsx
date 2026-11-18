@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import {
   Mail,
   MessageSquare,
+  Phone,
   ShieldCheck,
   CheckCircle2,
   AlertCircle,
@@ -16,6 +17,19 @@ import { Breadcrumbs } from '../components/layout/Breadcrumbs';
 import { Reveal } from '../components/animation/Reveal';
 import type { ContactFormData } from '../types';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import {
+  WHATSAPP_DISPLAY,
+  CONTACT_EMAIL,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  getGeneralWhatsAppUrl,
+  getGeneralEmailUrl,
+  getProjectWhatsAppUrl,
+  getProjectEmailUrl,
+  buildProjectWhatsAppMessage,
+  buildProjectEmailBody,
+  openExternalUrl
+} from '../config/contact';
 
 export const SERVICE_OPTIONS = [
   'Custom Software Engineering',
@@ -28,39 +42,6 @@ export const SERVICE_OPTIONS = [
   'Technical Consultation',
   'Other'
 ] as const;
-
-export const BUSINESS_WHATSAPP_NUMBER = '919345688752';
-export const DIRECT_WHATSAPP_URL = `https://wa.me/${BUSINESS_WHATSAPP_NUMBER}`;
-
-export function buildWhatsAppMessage(data: ContactFormData): string {
-  const name = data.name.trim();
-  const company = data.company.trim();
-  const email = data.email.trim();
-  const phone = data.phone.trim();
-  const service = data.service.trim();
-  const summary = data.summary.trim();
-
-  const companyLine = company ? `Company: ${company}\n` : '';
-
-  return (
-`Hello Vision Cloud Team,
-
-I would like to enquire about your services.
-
-Name: ${name}
-${companyLine}Email: ${email}
-Phone: ${phone}
-Service Required: ${service}
-
-Project Summary:
-${summary}
-
-Please contact me to discuss the requirements and next steps.
-
-Thank you,
-${name}`
-  );
-}
 
 function resolveInitialService(queryValue: string | null): string {
   if (!queryValue) return SERVICE_OPTIONS[0];
@@ -83,37 +64,60 @@ function resolveInitialService(queryValue: string | null): string {
   return 'Other';
 }
 
+function resolveInitialSummary(
+  project: string | null,
+  inquiry: string | null
+): string {
+  if (project) {
+    return `I would like to inquire about the architecture, implementation scope, and development details for ${project}.`;
+  }
+  if (inquiry) {
+    return `I would like to inquire about ${inquiry} and discuss technical specifications and integration options.`;
+  }
+  return '';
+}
+
 export const Contact: React.FC = () => {
   useDocumentTitle(
     'Contact Vision Cloud | Project Enquiry & WhatsApp Desk',
-    'Submit your software engineering requirements, enquire about custom systems, or connect directly with our engineering desk on WhatsApp.'
+    'Submit your software engineering requirements, enquire about custom systems, or connect directly with our engineering desk via WhatsApp and Email.'
   );
 
   const location = useLocation();
 
-  // Read URL query parameters (e.g. ?service=Web%20Development or ?project=Nexus or ?inquiry=...)
+  // Read URL query parameters (e.g. ?service=Web%20Development or ?project=... or ?inquiry=...)
   const searchParams = new URLSearchParams(location.search);
-  const initialQuery = searchParams.get('service') || searchParams.get('project') || searchParams.get('inquiry');
+  const initialServiceQuery = searchParams.get('service');
+  const initialProjectQuery = searchParams.get('project');
+  const initialInquiryQuery = searchParams.get('inquiry');
 
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     company: '',
     email: '',
     phone: '',
-    service: resolveInitialService(initialQuery),
-    summary: ''
+    service: resolveInitialService(initialServiceQuery || initialProjectQuery || initialInquiryQuery),
+    summary: resolveInitialSummary(initialProjectQuery, initialInquiryQuery)
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [submissionChannel, setSubmissionChannel] = useState<'whatsapp' | 'email'>('whatsapp');
   const [submittedMessage, setSubmittedMessage] = useState('');
   const [submittedWaUrl, setSubmittedWaUrl] = useState('');
+  const [submittedEmailUrl, setSubmittedEmailUrl] = useState('');
 
-  // Update service dropdown if URL query parameters change
+  // Update form if URL query parameters change
   useEffect(() => {
-    const q = searchParams.get('service') || searchParams.get('project') || searchParams.get('inquiry');
-    if (q) {
-      setFormData((prev) => ({ ...prev, service: resolveInitialService(q) }));
+    const qService = searchParams.get('service');
+    const qProject = searchParams.get('project');
+    const qInquiry = searchParams.get('inquiry');
+    if (qService || qProject || qInquiry) {
+      setFormData((prev) => ({
+        ...prev,
+        service: resolveInitialService(qService || qProject || qInquiry),
+        summary: prev.summary || resolveInitialSummary(qProject, qInquiry)
+      }));
     }
   }, [location.search]);
 
@@ -128,7 +132,7 @@ export const Contact: React.FC = () => {
       errs.name = 'Full name must be at least 2 characters.';
     }
 
-    // 2. Email Address (required)
+    // 2. Email Address (required, valid format)
     const trimmedEmail = formData.email.trim();
     if (!trimmedEmail) {
       errs.email = 'Please enter your email address.';
@@ -136,13 +140,13 @@ export const Contact: React.FC = () => {
       errs.email = 'Please enter a valid email address (e.g. name@company.com).';
     }
 
-    // 3. Mobile Number (required)
+    // 3. Mobile Number (required, valid mobile number)
     const trimmedPhone = formData.phone.trim();
     const phoneDigits = trimmedPhone.replace(/\D/g, '');
     if (!trimmedPhone) {
       errs.phone = 'Please enter your mobile number.';
     } else if (phoneDigits.length < 7 || phoneDigits.length > 15) {
-      errs.phone = 'Please enter a valid mobile number with country code (e.g. +91 98765 43210).';
+      errs.phone = 'Please enter a valid mobile number with country code (e.g. +91 90872 40937).';
     }
 
     // 4. Service Required (required)
@@ -182,36 +186,42 @@ export const Contact: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleInitiateSubmit = async (channel: 'whatsapp' | 'email') => {
     if (!validate()) return;
 
     setStatus('submitting');
-    const message = buildWhatsAppMessage(formData);
-    const waUrl = `https://wa.me/${BUSINESS_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    setSubmissionChannel(channel);
 
+    const waUrl = getProjectWhatsAppUrl(formData);
+    const waMessage = buildProjectWhatsAppMessage(formData);
+    const emailUrl = getProjectEmailUrl(formData);
+    const emailBody = buildProjectEmailBody(formData);
+
+    setSubmittedWaUrl(waUrl);
+    setSubmittedEmailUrl(emailUrl);
+    setSubmittedMessage(channel === 'whatsapp' ? waMessage : emailBody);
+
+    // Optional backend webhook notification if configured
     const apiUrl = import.meta.env.VITE_CONTACT_API_URL;
     try {
       if (apiUrl) {
         await fetch(apiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
+          body: JSON.stringify({ ...formData, channel })
         });
       }
     } catch (err) {
-      console.warn('[Vision Cloud] Backend enquiry logging warning:', err);
+      console.warn('[Vision Cloud] Backend enquiry logging note:', err);
     }
 
-    // Attempt to open WhatsApp directly in a new window/tab
-    try {
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
-    } catch (err) {
-      console.warn('[Vision Cloud] Browser prevented auto-opening WhatsApp popup:', err);
+    // Trigger redirection to chosen client
+    if (channel === 'whatsapp') {
+      openExternalUrl(waUrl);
+    } else {
+      openExternalUrl(emailUrl);
     }
 
-    setSubmittedWaUrl(waUrl);
-    setSubmittedMessage(message);
     setStatus('success');
   };
 
@@ -228,6 +238,7 @@ export const Contact: React.FC = () => {
     setStatus('idle');
     setSubmittedMessage('');
     setSubmittedWaUrl('');
+    setSubmittedEmailUrl('');
   };
 
   return (
@@ -266,7 +277,7 @@ export const Contact: React.FC = () => {
                 </p>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2.5rem' }}>
-                  {/* Real-Time WhatsApp Chat Card (Completely independent from form state) */}
+                  {/* Real-Time WhatsApp Chat Card */}
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', padding: '1.25rem', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)' }}>
                     <div style={{ color: '#27AE60', padding: '0.5rem', backgroundColor: 'rgba(39, 174, 96, 0.1)', borderRadius: 'var(--radius-sm)' }}>
                       <MessageSquare size={22} />
@@ -279,10 +290,10 @@ export const Contact: React.FC = () => {
                         WhatsApp Technical Desk
                       </h4>
                       <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
-                        Connect directly with our engineering team to discuss your requirements.
+                        Chat directly with an engineering lead at <strong>{WHATSAPP_DISPLAY}</strong>.
                       </p>
                       <a
-                        href={DIRECT_WHATSAPP_URL}
+                        href={getGeneralWhatsAppUrl()}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn btn--terracotta btn--sm"
@@ -309,10 +320,34 @@ export const Contact: React.FC = () => {
                         Send detailed briefs, system requirements, or request a mutual Non-Disclosure Agreement.
                       </p>
                       <a
-                        href="mailto:inquiries@visioncloud.tech"
+                        href={getGeneralEmailUrl()}
                         style={{ fontSize: '0.9rem', color: 'var(--color-mocha)', fontWeight: 600, fontFamily: 'var(--font-mono)' }}
                       >
-                        inquiries@visioncloud.tech
+                        {CONTACT_EMAIL}
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Direct Phone Line */}
+                  <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', padding: '1.25rem', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)' }}>
+                    <div style={{ color: 'var(--color-terracotta)', padding: '0.5rem', backgroundColor: 'rgba(185, 120, 98, 0.1)', borderRadius: 'var(--radius-sm)' }}>
+                      <Phone size={22} />
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-terracotta)', fontWeight: 600 }}>
+                        DIRECT TELEPHONY
+                      </span>
+                      <h4 style={{ fontSize: '1rem', marginTop: '0.2rem', marginBottom: '0.25rem' }}>
+                        Official Phone Contact
+                      </h4>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                        Direct engineering consultation line. Available Mon - Sat, 9:00 AM - 7:00 PM IST.
+                      </p>
+                      <a
+                        href={`tel:${PHONE_TEL}`}
+                        style={{ fontSize: '0.9rem', color: 'var(--color-mocha)', fontWeight: 600, fontFamily: 'var(--font-mono)' }}
+                      >
+                        {PHONE_DISPLAY}
                       </a>
                     </div>
                   </div>
@@ -370,18 +405,31 @@ export const Contact: React.FC = () => {
                     </div>
 
                     <span className="badge badge--terracotta" style={{ marginBottom: '0.5rem' }}>
-                      ENQUIRY READY FOR WHATSAPP
+                      {submissionChannel === 'whatsapp' ? 'ENQUIRY READY FOR WHATSAPP' : 'ENQUIRY READY FOR EMAIL'}
                     </span>
 
                     <h3 className="heading-md" style={{ marginBottom: '0.75rem', color: 'var(--color-mocha)' }}>
-                      Enquiry Formatted for WhatsApp
+                      {submissionChannel === 'whatsapp'
+                        ? 'Enquiry Formatted for WhatsApp'
+                        : 'Enquiry Formatted for Email Application'}
                     </h3>
 
                     <p style={{ fontSize: '0.95rem', lineHeight: '1.65', marginBottom: '1.5rem', color: 'var(--color-graphite-dark)' }}>
-                      Your enquiry has been prepared with your details. WhatsApp should open in a new tab.
-                      <strong style={{ display: 'block', marginTop: '0.5rem', color: 'var(--color-mocha)' }}>
-                        Please press "Send" in WhatsApp to deliver your enquiry directly to our team.
-                      </strong>
+                      {submissionChannel === 'whatsapp' ? (
+                        <>
+                          Your enquiry has been prepared with your details. WhatsApp should open in a new tab.
+                          <strong style={{ display: 'block', marginTop: '0.5rem', color: 'var(--color-mocha)' }}>
+                            Please press "Send" in WhatsApp to deliver your enquiry directly to our team.
+                          </strong>
+                        </>
+                      ) : (
+                        <>
+                          Your default email application has been opened with your enquiry prefilled addressed to <strong>{CONTACT_EMAIL}</strong>.
+                          <strong style={{ display: 'block', marginTop: '0.5rem', color: 'var(--color-mocha)' }}>
+                            Please press "Send" in your email application to deliver your enquiry to our engineering desk.
+                          </strong>
+                        </>
+                      )}
                     </p>
 
                     <div style={{ textAlign: 'left', marginBottom: '1.75rem' }}>
@@ -417,31 +465,45 @@ export const Contact: React.FC = () => {
                       </pre>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', maxWidth: '360px', margin: '0 auto' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', maxWidth: '380px', margin: '0 auto' }}>
                       <a
                         href={submittedWaUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn--primary btn--block"
+                        className="btn btn--terracotta btn--block"
                       >
                         <MessageSquare size={16} />
-                        <span>Continue in WhatsApp (+91 93456 88752)</span>
+                        <span>Continue in WhatsApp ({WHATSAPP_DISPLAY})</span>
+                      </a>
+                      <a
+                        href={submittedEmailUrl}
+                        className="btn btn--primary btn--block"
+                      >
+                        <Mail size={16} />
+                        <span>Open in Email Application</span>
                       </a>
                       <button
                         type="button"
                         onClick={handleReset}
                         className="btn btn--outline btn--sm"
+                        style={{ marginTop: '0.25rem' }}
                       >
                         Submit Another Enquiry
                       </button>
                     </div>
 
                     <p style={{ marginTop: '1.25rem', fontSize: '0.775rem', color: 'var(--color-graphite)', margin: '1.25rem 0 0' }}>
-                      If WhatsApp did not launch automatically, click "Continue in WhatsApp" above.
+                      If your chosen application did not launch automatically, use the buttons above. No message is sent until you press Send in WhatsApp or your email client.
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} noValidate>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleInitiateSubmit('whatsapp');
+                    }}
+                    noValidate
+                  >
                     <div style={{ marginBottom: '1.5rem' }}>
                       <span className="badge badge--terracotta" style={{ marginBottom: '0.5rem' }}>
                         PROJECT ENQUIRY
@@ -557,7 +619,7 @@ export const Contact: React.FC = () => {
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
-                          placeholder="e.g. +91 93456 88752"
+                          placeholder="e.g. +91 90872 40937"
                           className={`form-input ${errors.phone ? 'input-error' : ''}`}
                           aria-invalid={!!errors.phone}
                           aria-describedby={errors.phone ? 'err-phone' : undefined}
@@ -618,20 +680,35 @@ export const Contact: React.FC = () => {
                       )}
                     </div>
 
-                    {/* Submit Button */}
-                    <Button
-                      type="submit"
-                      variant="primary"
-                      size="lg"
-                      block={true}
-                      disabled={status === 'submitting'}
-                      icon={status === 'submitting' ? <Loader2 size={16} className="animate-spin" /> : <MessageSquare size={16} />}
-                    >
-                      {status === 'submitting' ? 'Preparing WhatsApp Message...' : 'Send Enquiry via WhatsApp'}
-                    </Button>
+                    {/* Two Submission Choices: Send via WhatsApp or Send via Email */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem', marginTop: '1.5rem' }}>
+                      <Button
+                        type="button"
+                        variant="terracotta"
+                        size="lg"
+                        block={true}
+                        disabled={status === 'submitting'}
+                        onClick={() => handleInitiateSubmit('whatsapp')}
+                        icon={status === 'submitting' && submissionChannel === 'whatsapp' ? <Loader2 size={16} className="animate-spin" /> : <MessageSquare size={16} />}
+                      >
+                        {status === 'submitting' && submissionChannel === 'whatsapp' ? 'Preparing WhatsApp...' : 'Send via WhatsApp'}
+                      </Button>
+
+                      <Button
+                        type="button"
+                        variant="primary"
+                        size="lg"
+                        block={true}
+                        disabled={status === 'submitting'}
+                        onClick={() => handleInitiateSubmit('email')}
+                        icon={status === 'submitting' && submissionChannel === 'email' ? <Loader2 size={16} className="animate-spin" /> : <Mail size={16} />}
+                      >
+                        {status === 'submitting' && submissionChannel === 'email' ? 'Preparing Email...' : 'Send via Email'}
+                      </Button>
+                    </div>
 
                     <p style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--color-graphite)', textAlign: 'center', lineHeight: '1.45' }}>
-                      Submitting prepares your enquiry and opens WhatsApp with your message formatted. Press <strong>Send</strong> in WhatsApp to deliver your project requirements directly to our engineering desk.
+                      Choose your preferred channel above. Your enquiry details will be prefilled in WhatsApp or your default email application. Press <strong>Send</strong> in that application to deliver your requirements to our engineering desk.
                     </p>
                   </form>
                 )}

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown, Menu, X, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ChevronDown, Menu, X, ArrowRight, ArrowUpRight, MessageSquare } from 'lucide-react';
 import { servicesData } from '../../data/services';
+import { getGeneralWhatsAppUrl, WHATSAPP_DISPLAY } from '../../config/contact';
 
 export const Header: React.FC = () => {
   const location = useLocation();
@@ -298,13 +299,15 @@ export const Header: React.FC = () => {
               </Link>
 
               <a
-                href="https://wa.me/919345688752?text=Hello%20Vision%20Cloud%20team%2C%20I%20would%20like%20to%20discuss%20a%20software%20engineering%20project."
+                href={getGeneralWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
                 className="btn btn--outline btn--block"
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}
               >
-                <span>WhatsApp Engineering</span>
+                <MessageSquare size={15} />
+                <span>WhatsApp ({WHATSAPP_DISPLAY})</span>
               </a>
             </div>
           </nav>

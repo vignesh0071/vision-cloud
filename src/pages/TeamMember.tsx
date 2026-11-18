@@ -14,6 +14,7 @@ import { Reveal } from '../components/animation/Reveal';
 import { ProfileAvatar } from '../components/team/ProfileAvatar';
 import { teamData } from '../data/team';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { DIRECT_WHATSAPP_BASE } from '../config/contact';
 
 export const TeamMember: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -182,7 +183,7 @@ export const TeamMember: React.FC = () => {
                   </Button>
 
                   <a
-                    href={`https://wa.me/919345688752?text=${encodeURIComponent(
+                    href={`${DIRECT_WHATSAPP_BASE}?text=${encodeURIComponent(
                       `Hello Vision Cloud, I would like to initiate an engineering consultation regarding ${member.focus} with ${member.name}.`
                     )}`}
                     target="_blank"

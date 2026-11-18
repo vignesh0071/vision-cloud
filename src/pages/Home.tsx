@@ -32,6 +32,7 @@ import { processStages } from '../data/process';
 import { innovationThemes } from '../data/innovation';
 import type { ProjectItem } from '../types';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { getGeneralWhatsAppUrl } from '../config/contact';
 
 // Map icon strings to Lucide components
 const iconMap: Record<string, React.ReactNode> = {
@@ -667,7 +668,7 @@ export const Home: React.FC = () => {
                   Start a Project
                 </Button>
                 <a
-                  href="https://wa.me/919345688752?text=Hello%20Vision%20Cloud%20team%2C%20I%20would%20like%20to%20discuss%20a%20software%20engineering%20project."
+                  href={getGeneralWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn--outline-inverse btn--lg"

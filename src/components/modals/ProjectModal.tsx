@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { X, CheckCircle2, ArrowRight, ExternalLink } from 'lucide-react';
+import { X, CheckCircle2, ArrowRight, ExternalLink, MessageSquare } from 'lucide-react';
 import type { ProjectItem } from '../../types';
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
 import { DeploymentStatusPanel } from '../projects/DeploymentStatusPanel';
+import { DIRECT_WHATSAPP_BASE } from '../../config/contact';
 
 interface ProjectModalProps {
   project: ProjectItem | null;
@@ -197,6 +198,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
               <ExternalLink size={14} />
             </a>
           )}
+
+          <a
+            href={`${DIRECT_WHATSAPP_BASE}?text=${encodeURIComponent(
+              `Hello Vision Cloud Team,\nI would like to discuss the architecture and implementation details for ${project.title}.\nPlease contact me to discuss the next steps.\nThank you.`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn--outline btn--sm"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+          >
+            <MessageSquare size={14} />
+            <span>WhatsApp</span>
+          </a>
 
           <Button
             variant={project.liveUrl ? 'outline' : 'terracotta'}

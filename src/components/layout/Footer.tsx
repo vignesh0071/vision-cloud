@@ -1,6 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ArrowUp, MessageSquare } from 'lucide-react';
+import { ArrowUpRight, ArrowUp, MessageSquare, Phone, Mail } from 'lucide-react';
+import {
+  WHATSAPP_DISPLAY,
+  CONTACT_EMAIL,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  getGeneralWhatsAppUrl,
+  getGeneralEmailUrl
+} from '../../config/contact';
 
 interface FooterProps {
   onOpenLegal?: (type: 'privacy' | 'terms') => void;
@@ -33,7 +41,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal }) => {
               <ArrowUpRight size={15} />
             </Link>
             <a
-              href="https://wa.me/919345688752?text=Hello%20Vision%20Cloud%20team%2C%20I%20would%20like%20to%20discuss%20a%20project."
+              href={getGeneralWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn--outline-inverse"
@@ -105,21 +113,31 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegal }) => {
               <li><Link to="/contact">Project Inquiry Form</Link></li>
               <li>
                 <a
-                  href="https://wa.me/919345688752?text=Hello%20Vision%20Cloud%20team%2C%20I%20would%20like%20to%20discuss%20a%20project."
+                  href={getGeneralWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
                 >
-                  <span>WhatsApp Desk</span>
-                  <ArrowUpRight size={13} />
+                  <MessageSquare size={13} />
+                  <span>WhatsApp: {WHATSAPP_DISPLAY}</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:inquiries@visioncloud.tech"
+                  href={`tel:${PHONE_TEL}`}
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
                 >
-                  <span>inquiries@visioncloud.tech</span>
+                  <Phone size={13} />
+                  <span>Phone: {PHONE_DISPLAY}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={getGeneralEmailUrl()}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
+                >
+                  <Mail size={13} />
+                  <span>{CONTACT_EMAIL}</span>
                 </a>
               </li>
               {onOpenLegal && (
