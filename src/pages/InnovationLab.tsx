@@ -88,10 +88,10 @@ export const InnovationLab: React.FC = () => {
                 }}
               >
                 <img
-                  src="/images/vision-tech-mocha.jpg"
-                  alt="Vision Cloud Technical Innovation Lab"
+                  src="/images/innovation-lab-workspace.webp"
+                  alt="Vision Cloud Software Engineering & Testing Workstation"
                   loading="lazy"
-                  style={{ width: '100%', height: '420px', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '420px', objectFit: 'cover', objectPosition: 'center' }}
                 />
               </div>
             </Reveal>

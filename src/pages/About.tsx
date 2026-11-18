@@ -79,10 +79,10 @@ export const About: React.FC = () => {
                 }}
               >
                 <img
-                  src="/images/vision-hero-mocha.jpg"
-                  alt="Vision Cloud Architectural Identity"
+                  src="/images/about/vision-cloud-qa-workspace.webp"
+                  alt="Vision Cloud Dedicated QA Engineering & Testing Studio"
                   loading="lazy"
-                  style={{ width: '100%', height: '420px', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '420px', objectFit: 'cover', objectPosition: 'center' }}
                 />
               </div>
             </Reveal>
@@ -268,104 +268,7 @@ export const About: React.FC = () => {
         </Container>
       </section>
 
-      {/* Executive Engineering Leadership */}
-      <section className="section-pad bg-cream">
-        <Container>
-          <div className="grid-2" style={{ gap: '2rem' }}>
-            <Reveal delayMs={100}>
-              <div className="editorial-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                  <Badge variant="terracotta">CHIEF TECHNOLOGY OFFICER</Badge>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--color-graphite)' }}>VC-EXEC-01</span>
-                </div>
-                <h3 className="heading-md" style={{ marginBottom: '0.25rem' }}>Mr. Kesevean M</h3>
-                <span style={{ fontSize: '0.875rem', color: 'var(--color-terracotta)', fontWeight: 600, marginBottom: '1rem' }}>
-                  Chief Technology Officer & Full-Stack Architect
-                </span>
-                <p style={{ fontSize: '0.925rem', lineHeight: '1.65', color: 'var(--color-graphite)', flex: 1 }}>
-                  Plays a foundational executive and technical leadership role across Vision Cloud. As a seasoned full-stack developer and backend systems specialist, he architects and maintains our core server infrastructure, high-availability microservices, database clusters, and cloud-native deployment pipelines, ensuring rock-solid uptime and performance across all production environments.
-                </p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1.25rem' }}>
-                  {['Full-Stack Dev', 'Backend Servers', 'Server Maintenance', 'DB Clusters', 'High Availability'].map((skill) => (
-                    <span key={skill} style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: 'var(--color-subtle-beige)', color: 'var(--color-mocha)', fontFamily: 'var(--font-mono)' }}>
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
 
-            <Reveal delayMs={200}>
-              <div className="editorial-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                  <Badge variant="terracotta">LEAD SOFTWARE ARCHITECT</Badge>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--color-graphite)' }}>VC-ARCH-02</span>
-                </div>
-                <h3 className="heading-md" style={{ marginBottom: '0.25rem' }}>Mr. Keerthi Kannan S</h3>
-                <span style={{ fontSize: '0.875rem', color: 'var(--color-terracotta)', fontWeight: 600, marginBottom: '1rem' }}>
-                  Lead Software Architect & Innovation Strategist
-                </span>
-                <p style={{ fontSize: '0.925rem', lineHeight: '1.65', color: 'var(--color-graphite)', flex: 1 }}>
-                  Drives the complete end-to-end software architecture for Vision Cloud solutions. He spearheads innovative technical ideation, defines resilient architectural patterns, and ensures complex business requirements are translated into clean, scalable, type-safe system boundaries built for long-term growth.
-                </p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1.25rem' }}>
-                  {['Complete Architecture', 'Innovative Ideation', 'System Design', 'Event-Driven Systems', 'Clean Boundaries'].map((skill) => (
-                    <span key={skill} style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: 'var(--color-subtle-beige)', color: 'var(--color-mocha)', fontFamily: 'var(--font-mono)' }}>
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delayMs={300}>
-              <div className="editorial-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                  <Badge variant="terracotta">DESIGN DIRECTOR</Badge>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--color-graphite)' }}>VC-DSN-03</span>
-                </div>
-                <h3 className="heading-md" style={{ marginBottom: '0.25rem' }}>Mr. Vignesh V</h3>
-                <span style={{ fontSize: '0.875rem', color: 'var(--color-terracotta)', fontWeight: 600, marginBottom: '1rem' }}>
-                  Design Director & Principal Frontend Architect
-                </span>
-                <p style={{ fontSize: '0.925rem', lineHeight: '1.65', color: 'var(--color-graphite)', flex: 1 }}>
-                  Leads the complete digital product design and frontend engineering practice at Vision Cloud. Combining deep mastery of UI/UX ergonomics with modern web standards, he crafts intuitive user workflows, scalable design token systems, fluid micro-interactions, and accessible, pixel-perfect frontend experiences.
-                </p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1.25rem' }}>
-                  {['Complete UI/UX', 'Frontend Engineering', 'Ergonomic Workflows', 'Design Tokens', 'Pixel Precision'].map((skill) => (
-                    <span key={skill} style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: 'var(--color-subtle-beige)', color: 'var(--color-mocha)', fontFamily: 'var(--font-mono)' }}>
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delayMs={400}>
-              <div className="editorial-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                  <Badge variant="terracotta">MOBILE ENGINEERING LEAD</Badge>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--color-graphite)' }}>VC-MOB-04</span>
-                </div>
-                <h3 className="heading-md" style={{ marginBottom: '0.25rem' }}>Mr. Govindha Rajan K</h3>
-                <span style={{ fontSize: '0.875rem', color: 'var(--color-terracotta)', fontWeight: 600, marginBottom: '1rem' }}>
-                  Mobile Engineering Lead & Client Platforms Architect
-                </span>
-                <p style={{ fontSize: '0.925rem', lineHeight: '1.65', color: 'var(--color-graphite)', flex: 1 }}>
-                  Leads mobile engineering across iOS and Android ecosystems. He oversees native and cross-platform mobile architectures, offline data synchronization, hardware-accelerated touch animations, biometric security integrations, and low-latency client performance, delivering fluid, dependable mobile applications for modern enterprises.
-                </p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1.25rem' }}>
-                  {['Mobile Engineering', 'iOS & Android', 'Offline Synchronization', 'Biometric Security', 'Low Latency'].map((skill) => (
-                    <span key={skill} style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: 'var(--color-subtle-beige)', color: 'var(--color-mocha)', fontFamily: 'var(--font-mono)' }}>
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </Container>
-      </section>
 
       {/* CTA Section */}
       <section className="section-pad--compact bg-cinema">

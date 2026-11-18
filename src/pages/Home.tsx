@@ -364,46 +364,31 @@ export const Home: React.FC = () => {
                       </div>
                     )}
 
-                    <div style={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 2, pointerEvents: 'none' }}>
-                      <span
-                        style={{
-                          fontSize: '0.7rem',
-                          fontFamily: 'var(--font-mono)',
-                          padding: '0.25rem 0.65rem',
-                          backgroundColor: 'rgba(30, 24, 21, 0.92)',
-                          color: 'var(--color-warm-ivory)',
-                          borderRadius: 'var(--radius-xs)',
-                          border: '1px solid rgba(243, 238, 232, 0.18)',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.4rem',
-                          backdropFilter: 'blur(4px)'
-                        }}
-                      >
-                        <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-terracotta-soft)' }} />
-                        <span>{project.category}</span>
-                      </span>
-                    </div>
-
-                    <div style={{ position: 'absolute', top: '1rem', right: '1rem', zIndex: 2, pointerEvents: 'none' }}>
-                      <span
-                        style={{
-                          fontSize: '0.7rem',
-                          fontFamily: 'var(--font-mono)',
-                          padding: '0.25rem 0.6rem',
-                          backgroundColor: project.status === 'Completed' ? 'rgba(30, 24, 21, 0.9)' : 'rgba(185, 120, 98, 0.92)',
-                          color: 'var(--color-warm-ivory)',
-                          borderRadius: 'var(--radius-xs)',
-                          border: '1px solid var(--border-inverse-subtle)'
-                        }}
-                      >
-                        {project.status}
-                      </span>
-                    </div>
                   </div>
 
                   <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
+                      {/* Clean Category & Status Row */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                        <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-terracotta)', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                          {project.category}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: '0.7rem',
+                            fontFamily: 'var(--font-mono)',
+                            padding: '0.2rem 0.55rem',
+                            borderRadius: 'var(--radius-xs)',
+                            backgroundColor: project.status === 'Completed' ? 'rgba(48, 39, 34, 0.08)' : 'rgba(185, 120, 98, 0.12)',
+                            color: project.status === 'Completed' ? 'var(--color-mocha)' : 'var(--color-terracotta)',
+                            border: '1px solid var(--border-subtle)',
+                            fontWeight: 600
+                          }}
+                        >
+                          {project.status}
+                        </span>
+                      </div>
+
                       <h3 className="heading-md" style={{ marginBottom: '0.75rem', color: 'var(--color-mocha)' }}>
                         {project.title}
                       </h3>

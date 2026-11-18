@@ -16,10 +16,7 @@ export const FAQ: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>({
-    'faq-scope-services': true,
-    'faq-process-kickoff': true
-  });
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
 
   const categories = [
     'All',
