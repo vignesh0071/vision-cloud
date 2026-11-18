@@ -98,6 +98,16 @@ export const Home: React.FC = () => {
                   </p>
                 </Reveal>
 
+                <Reveal delayMs={350}>
+                  <div className="hero-section__supporting-statement">
+                    <span>Thoughtful engineering</span>
+                    <span className="statement-dot" aria-hidden="true">·</span>
+                    <span>Dependable delivery</span>
+                    <span className="statement-dot" aria-hidden="true">·</span>
+                    <span>Built to scale</span>
+                  </div>
+                </Reveal>
+
                 <Reveal delayMs={400}>
                   <div className="hero-section__cta-group">
                     <Button to="/contact" variant="terracotta" size="lg" icon={<ArrowRight size={16} />}>
@@ -294,20 +304,6 @@ export const Home: React.FC = () => {
       {/* SECTION D: FEATURED PROJECTS */}
       <section className="section-pad bg-ivory">
         <Container>
-          <Reveal>
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '3rem', gap: '1.5rem' }}>
-              <div>
-                <Badge variant="terracotta" style={{ marginBottom: '0.75rem' }}>WORK SHOWCASE</Badge>
-                <h2 className="heading-xl">
-                  Verified <span className="heading-accent heading-accent--terracotta">Projects & Initiatives</span>.
-                </h2>
-              </div>
-              <Button to="/projects" variant="outline" icon={<ArrowRight size={14} />}>
-                View All Projects & Architecture
-              </Button>
-            </div>
-          </Reveal>
-
           <div className="grid-2" style={{ gap: '2.5rem' }}>
             {projectsData.map((project, idx) => (
               <Reveal key={project.id} delayMs={idx * 80}>
@@ -464,6 +460,14 @@ export const Home: React.FC = () => {
               </Reveal>
             ))}
           </div>
+
+          <Reveal delayMs={200}>
+            <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+              <Button to="/projects" variant="outline" icon={<ArrowRight size={14} />}>
+                View All Projects & Architecture
+              </Button>
+            </div>
+          </Reveal>
         </Container>
       </section>
 

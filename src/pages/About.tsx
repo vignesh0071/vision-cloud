@@ -271,17 +271,7 @@ export const About: React.FC = () => {
       {/* Executive Engineering Leadership */}
       <section className="section-pad bg-cream">
         <Container>
-          <Reveal>
-            <SectionHeading
-              badgeText="EXECUTIVE LEADERSHIP"
-              title="The Practitioners Behind Our"
-              titleHighlight="Systems."
-              description="Vision Cloud is directed by hands-on engineering leaders dedicated to robust backend architectures, resilient system design, ergonomic interfaces, and performant mobile platforms."
-              centered={true}
-            />
-          </Reveal>
-
-          <div className="grid-2" style={{ marginTop: '2.5rem', gap: '2rem' }}>
+          <div className="grid-2" style={{ gap: '2rem' }}>
             <Reveal delayMs={100}>
               <div className="editorial-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
